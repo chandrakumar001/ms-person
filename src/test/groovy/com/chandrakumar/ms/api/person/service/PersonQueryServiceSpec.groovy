@@ -1,0 +1,104 @@
+package com.chandrakumar.ms.api.person.service
+
+import com.chandrakumar.ms.api.person.dto.PersonDTO
+import com.chandrakumar.ms.api.person.entity.Person
+import com.chandrakumar.ms.api.person.repository.PersonRepository
+import spock.lang.Specification
+import spock.lang.Unroll
+
+import static com.chandrakumar.ms.api.person.service.PersonMockData.person
+import static com.chandrakumar.ms.api.person.util.PersonConstant.*
+
+@Unroll
+class PersonQueryServiceSpec extends Specification {
+
+    private PersonQueryService queryService
+    def personRepository = Mock(PersonRepository)
+
+    /**
+     * Runs before each test method, like the JUnit Before
+     * annotation
+     */
+    def setup() {
+        queryService = new SimplePersonQueryService(personRepository)
+    }
+
+    def "Success::getAllPerson IDs are logged whenever they are saved in the DB"() {
+        given: "a person dao that assigns an ID to person"
+        def emailId = "osaimar19@gmail.com"
+        def firstName = "chandra"
+        def lastName = "kumar"
+        def age = "28"
+
+        final Person person = person(emailId, firstName, lastName, age)
+        personRepository.findAll() >> List.of(person)
+
+        when: "that person is saved in the DB"
+        List<PersonDTO> personDTOList = queryService.getAllPerson()
+
+        then: "the ID is correctly logged"
+        PersonDTO personDTO = personDTOList.get(0)
+        personDTO.emailId == emailId
+        personDTO.age == age
+    }
+
+    def "Failed::getAllPerson IDs are logged whenever they are saved in the DB"() {
+        given: "a person dao that assigns an ID to person"
+
+        def actualErrorMessage = null
+        personRepository.findAll() >> mockDBPersonData
+
+        when: "that person is saved in the DB"
+        try {
+            queryService.getAllPerson()
+        } catch (Exception e) {
+            actualErrorMessage = e.getMessage()
+        }
+        then: "the ID is correctly logged"
+        actualErrorMessage == expectedErrorMessage
+
+        where:
+        testStep          | mockDBPersonData        || expectedErrorMessage
+        "No record found" | Collections.emptyList() || ERROR_NO_RECORD_FOUND
+    }
+
+    def "Success::getPersonById IDs are logged whenever they are saved in the DB"() {
+        given: "a person dao that assigns an ID to person"
+        def personId = "d6f02a17-c676-4b1b-ae39-e3b12f47c407"
+        def emailId = "osaimar19@gmail.com"
+        def firstName = "chandra"
+        def lastName = "kumar"
+        def age = "28"
+
+        final Person person = person(emailId, firstName, lastName, age)
+        personRepository.findById(_ as UUID) >> Optional.of(person)
+
+        when: "that person is saved in the DB"
+        PersonDTO personDTO = queryService.getPersonById(personId)
+
+        then: "the ID is correctly logged"
+        personDTO.emailId == emailId
+        personDTO.age == age
+    }
+
+    def "Failed::getPersonById IDs are logged whenever they are saved in the DB"() {
+        given: "a person dao that assigns an ID to person"
+
+        def actualErrorMessage = null
+        personRepository.findById(_ as UUID) >> mockDBPersonData
+
+        when: "that person is saved in the DB"
+        try {
+            queryService.getPersonById(personId)
+        } catch (Exception e) {
+            actualErrorMessage = e.getMessage()
+        }
+        then: "the ID is correctly logged"
+        actualErrorMessage == expectedErrorMessage
+
+        where:
+        testStep                      | personId                               | mockDBPersonData || expectedErrorMessage
+        "The personId invalid format" | "d6f02a17-c676-4b1b-ae39"              | Optional.empty() || ERROR_THE_PERSON_ID_IS_INVALID_UUID_FORMAT
+        "The person is not found"     | "d6f02a17-c676-4b1b-ae39-e3b12f47c407" | Optional.empty() || ERROR_PERSON_ID_IS_NOT_FOUND
+    }
+}

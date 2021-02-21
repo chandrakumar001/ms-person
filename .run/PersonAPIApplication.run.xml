@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="PersonAPIApplication-local" type="Application" factoryName="Application" singleton="false">
+    <option name="MAIN_CLASS_NAME" value="com.chandrakumar.ms.api.PersonAPIApplication" />
+    <module name="ms-person" />
+    <option name="VM_PARAMETERS" value="-Dspring.profiles.active=local" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.chandrakumar.ms.api.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

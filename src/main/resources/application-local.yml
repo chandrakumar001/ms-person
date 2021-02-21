@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: ms-person
+  jpa:
+    properties:
+      hibernate:
+        generate_statistics: true
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+      default_schema: common
+      jdbc.lob.non_contextual_creation: true
+      dialect: org.hibernate.dialect.H2Dialect
+  h2:
+    console.enabled: true
+    console.path: /h2
+
+logging:
+  level:
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+    org.hibernate.stat: debug
