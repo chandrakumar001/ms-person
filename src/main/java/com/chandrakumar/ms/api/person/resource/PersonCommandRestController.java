@@ -1,7 +1,8 @@
 package com.chandrakumar.ms.api.person.resource;
 
-import com.chandrakumar.ms.api.person.dto.PersonDTO;
 import com.chandrakumar.ms.api.person.service.PersonCommandService;
+import com.chandrakumar.ms.api.person.swagger.model.PersonBareDTO;
+import com.chandrakumar.ms.api.person.swagger.model.PersonDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 import static com.chandrakumar.ms.api.person.resource.PersonURLConstant.*;
 
@@ -33,12 +36,12 @@ public class PersonCommandRestController {
             }
     )
     public ResponseEntity<PersonDTO> createPerson(
-            @RequestBody PersonDTO personDTO) {
+            @RequestBody @Valid PersonBareDTO personBareDTO) {
 
-        final PersonDTO personResponse = personCommandService.createPerson(
-                personDTO
+        final PersonDTO personDTO = personCommandService.createPerson(
+                personBareDTO
         );
-        return new ResponseEntity<>(personResponse, HttpStatus.CREATED);
+        return new ResponseEntity<>(personDTO, HttpStatus.CREATED);
     }
 
     @PutMapping(V1_PERSONS_PERSON_ID_URL)
@@ -54,13 +57,13 @@ public class PersonCommandRestController {
     )
     public ResponseEntity<PersonDTO> updatePerson(
             @PathVariable(name = PERSON_ID_PATH) final String personId,
-            @RequestBody PersonDTO personDTO) {
+            @RequestBody @Valid PersonBareDTO personBareDTO) {
 
-        final PersonDTO updatePerson = personCommandService.updatePerson(
+        final PersonDTO personDTO = personCommandService.updatePerson(
                 personId,
-                personDTO
+                personBareDTO
         );
-        return new ResponseEntity<>(updatePerson, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(personDTO, HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping(V1_PERSONS_PERSON_ID_URL)

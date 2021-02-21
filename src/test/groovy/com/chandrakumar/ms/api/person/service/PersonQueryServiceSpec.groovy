@@ -1,8 +1,10 @@
 package com.chandrakumar.ms.api.person.service
 
-import com.chandrakumar.ms.api.person.dto.PersonDTO
+
 import com.chandrakumar.ms.api.person.entity.Person
 import com.chandrakumar.ms.api.person.repository.PersonRepository
+import com.chandrakumar.ms.api.person.swagger.model.PersonDTO
+import com.chandrakumar.ms.api.person.swagger.model.PersonListResponseDTO
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -34,12 +36,13 @@ class PersonQueryServiceSpec extends Specification {
         personRepository.findAll() >> List.of(person)
 
         when: "that person is saved in the DB"
-        List<PersonDTO> personDTOList = queryService.getAllPerson()
+        PersonListResponseDTO personDTOList = queryService.getAllPerson()
 
         then: "the ID is correctly logged"
-        PersonDTO personDTO = personDTOList.get(0)
-        personDTO.emailId == emailId
-        personDTO.age == age
+        personDTOList.count == 1
+        PersonDTO personDTO = personDTOList.items.get(0);
+        personDTO?.data?.emailId == emailId
+        personDTO?.data?.age == age
     }
 
     def "Failed::getAllPerson IDs are logged whenever they are saved in the DB"() {
@@ -65,20 +68,24 @@ class PersonQueryServiceSpec extends Specification {
     def "Success::getPersonById IDs are logged whenever they are saved in the DB"() {
         given: "a person dao that assigns an ID to person"
         def personId = "d6f02a17-c676-4b1b-ae39-e3b12f47c407"
+        def personIdUUID = UUID.fromString(personId)
         def emailId = "osaimar19@gmail.com"
         def firstName = "chandra"
         def lastName = "kumar"
         def age = "28"
 
         final Person person = person(emailId, firstName, lastName, age)
+        person.personId= personIdUUID
+
         personRepository.findById(_ as UUID) >> Optional.of(person)
 
         when: "that person is saved in the DB"
         PersonDTO personDTO = queryService.getPersonById(personId)
 
         then: "the ID is correctly logged"
-        personDTO.emailId == emailId
-        personDTO.age == age
+        personDTO.personId == personIdUUID
+        personDTO?.data?.emailId == emailId
+        personDTO?.data?.age == age
     }
 
     def "Failed::getPersonById IDs are logged whenever they are saved in the DB"() {

@@ -1,7 +1,8 @@
 package com.chandrakumar.ms.api.person.resource;
 
-import com.chandrakumar.ms.api.person.dto.PersonDTO;
 import com.chandrakumar.ms.api.person.service.PersonQueryService;
+import com.chandrakumar.ms.api.person.swagger.model.PersonDTO;
+import com.chandrakumar.ms.api.person.swagger.model.PersonListResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -37,9 +38,9 @@ public class PersonQueryRestController {
                     @ApiResponse(responseCode = "500", description = "Application failed to process the request", content = @Content)
             }
     )
-    public ResponseEntity<List<PersonDTO>> getAllPerson() {
+    public ResponseEntity<PersonListResponseDTO> getAllPerson() {
 
-        final List<PersonDTO> personList = personQueryService.getAllPerson();
+        final PersonListResponseDTO personList = personQueryService.getAllPerson();
         return new ResponseEntity<>(personList, HttpStatus.OK);
     }
 
@@ -57,7 +58,9 @@ public class PersonQueryRestController {
     public ResponseEntity<PersonDTO> getPersonById(
             @PathVariable(name = PersonURLConstant.PERSON_ID_PATH) final String personId) {
 
-        final PersonDTO personById = personQueryService.getPersonById(personId);
+        final PersonDTO personById = personQueryService.getPersonById(
+                personId
+        );
         return new ResponseEntity<>(personById, HttpStatus.OK);
     }
 }

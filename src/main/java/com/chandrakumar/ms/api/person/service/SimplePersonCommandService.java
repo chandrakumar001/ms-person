@@ -3,10 +3,11 @@ package com.chandrakumar.ms.api.person.service;
 import com.chandrakumar.ms.api.exception.CommonUtilException;
 import com.chandrakumar.ms.api.exception.ResourceAlreadyFoundException;
 import com.chandrakumar.ms.api.exception.ResourceNotFoundException;
-import com.chandrakumar.ms.api.person.dto.PersonDTO;
 import com.chandrakumar.ms.api.person.entity.Person;
 import com.chandrakumar.ms.api.person.mapper.PersonMapper;
 import com.chandrakumar.ms.api.person.repository.PersonRepository;
+import com.chandrakumar.ms.api.person.swagger.model.PersonBareDTO;
+import com.chandrakumar.ms.api.person.swagger.model.PersonDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import javax.transaction.Transactional;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.chandrakumar.ms.api.person.mapper.PersonMapper.mapToPerson;
 import static com.chandrakumar.ms.api.person.util.PersonConstant.*;
 import static com.chandrakumar.ms.api.person.validation.PersonValidator.validatePersonDTO;
 import static com.chandrakumar.ms.api.util.CommonUtil.validateUUID;
@@ -29,15 +31,15 @@ public class SimplePersonCommandService implements PersonCommandService {
     }
 
     @Override
-    public PersonDTO createPerson(final PersonDTO personDTO) {
+    public PersonDTO createPerson(final PersonBareDTO personBareDTO) {
 
-        validatePersonDTO(personDTO)
+        validatePersonDTO(personBareDTO)
                 .ifPresent(CommonUtilException::fieldValidationException);
 
-        existingPersonByEmailId(personDTO.getEmailId())
+        existingPersonByEmailId(personBareDTO.getEmailId())
                 .ifPresent(this::personAlreadyFoundException);
 
-        final Person person = PersonMapper.mapToPerson(personDTO, new Person());
+        final Person person = mapToPerson(personBareDTO, new Person());
         person.setPersonId(UUID.randomUUID());
         final Person newPerson = personRepository.save(person);
         return PersonMapper.mapToPersonDTO(newPerson);
@@ -46,17 +48,17 @@ public class SimplePersonCommandService implements PersonCommandService {
 
     @Override
     public PersonDTO updatePerson(final String personId,
-                                  final PersonDTO personDTO) {
+                                  final PersonBareDTO personBareDTO) {
 
         validateUUID(personId, ERROR_THE_PERSON_ID_IS_INVALID_UUID_FORMAT)
                 .ifPresent(CommonUtilException::fieldValidationException);
         final UUID personIdUUID = UUID.fromString(personId);
 
-        validatePersonDTO(personDTO)
+        validatePersonDTO(personBareDTO)
                 .ifPresent(CommonUtilException::fieldValidationException);
 
         final Person existingPerson = existingPersonById(personIdUUID);
-        final Person updatedPerson = PersonMapper.mapToPerson(personDTO, existingPerson);
+        final Person updatedPerson = mapToPerson(personBareDTO, existingPerson);
         return PersonMapper.mapToPersonDTO(updatedPerson);
     }
 

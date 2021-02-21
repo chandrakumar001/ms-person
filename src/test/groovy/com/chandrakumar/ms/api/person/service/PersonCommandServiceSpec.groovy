@@ -1,12 +1,15 @@
 package com.chandrakumar.ms.api.person.service
 
-import com.chandrakumar.ms.api.person.dto.PersonDTO
+
 import com.chandrakumar.ms.api.person.entity.Person
 import com.chandrakumar.ms.api.person.repository.PersonRepository
+import com.chandrakumar.ms.api.person.swagger.model.PersonBareDTO
+import com.chandrakumar.ms.api.person.swagger.model.PersonDTO
 import spock.lang.Specification
 import spock.lang.Unroll
 
 import static com.chandrakumar.ms.api.person.service.PersonMockData.person
+import static com.chandrakumar.ms.api.person.service.PersonMockData.personBareDTO
 import static com.chandrakumar.ms.api.person.service.PersonMockData.personDTO
 import static com.chandrakumar.ms.api.person.util.PersonConstant.*
 
@@ -32,18 +35,18 @@ class PersonCommandServiceSpec extends Specification {
         def lastName = "kumar"
         def age = "28"
 
-        final PersonDTO personDTO = personDTO(emailId, firstName, lastName, age)
+        final PersonBareDTO personBareDTO = personBareDTO(emailId, firstName, lastName, age)
         final Person person = person(emailId, firstName, lastName, age)
 
         personRepository.findByEmailId(_ as String) >> Optional.empty()
         personRepository.save(_ as Person) >> person
 
         when: "that person is saved in the DB"
-        PersonDTO createdPersonDTO = commandService.createPerson(personDTO)
+        PersonDTO personDTO = commandService.createPerson(personBareDTO)
 
         then: "the ID is correctly logged"
-        createdPersonDTO.emailId == emailId
-        createdPersonDTO.age == age
+        personDTO?.data?.emailId == emailId
+        personDTO?.data?.age == age
         and:
         1 * personRepository.save(_ as Person) >> person
     }
@@ -56,12 +59,12 @@ class PersonCommandServiceSpec extends Specification {
         def age = "28"
         def actualErrorMessage = null
 
-        final PersonDTO personDTO = personDTO(emailId, firstName, lastName, age)
+        final PersonBareDTO personBareDTO = personBareDTO(emailId, firstName, lastName, age)
         personRepository.findByEmailId(_ as String) >> Optional.of(mockDBPersonData)
 
         when: "that person is saved in the DB"
         try {
-            commandService.createPerson(personDTO)
+            commandService.createPerson(personBareDTO)
         } catch (Exception e) {
             actualErrorMessage = e.getMessage()
         }
@@ -82,19 +85,18 @@ class PersonCommandServiceSpec extends Specification {
         def lastName = "kumar"
         def age = "28"
 
-        final PersonDTO personDTO = personDTO(emailId, firstName, lastName, age)
+        final PersonBareDTO personBareDTO = personBareDTO(emailId, firstName, lastName, age)
         final Person person = person(emailId, firstName, lastName, age)
 
         personRepository.findById(_ as UUID) >> Optional.of(person)
         personRepository.save(_ as Person) >> person
 
         when: "that person is saved in the DB"
-        PersonDTO createdPersonDTO = commandService.updatePerson(personId, personDTO)
+        PersonDTO personDTO = commandService.updatePerson(personId, personBareDTO)
 
         then: "the ID is correctly logged"
-
-        createdPersonDTO.emailId == emailId
-        createdPersonDTO.age == age
+        personDTO?.data?.emailId == emailId
+        personDTO?.data?.age == age
     }
 
     def "Failed::updatePerson IDs are logged whenever they are saved in the DB"() {
@@ -105,12 +107,12 @@ class PersonCommandServiceSpec extends Specification {
         def age = "28"
         def actualErrorMessage = null
 
-        final PersonDTO personDTO = personDTO(emailId, firstName, lastName, age)
+        final PersonBareDTO personBareDTO = personBareDTO(emailId, firstName, lastName, age)
         personRepository.findById(_ as UUID) >> mockDBPersonData
 
         when: "that person is saved in the DB"
         try {
-            commandService.updatePerson(personId, personDTO)
+            commandService.updatePerson(personId, personBareDTO)
         } catch (Exception e) {
             actualErrorMessage = e.getMessage()
         }

@@ -3,10 +3,11 @@ package com.chandrakumar.ms.api.person.service;
 import com.chandrakumar.ms.api.exception.CommonUtilException;
 import com.chandrakumar.ms.api.exception.NoRecordFoundException;
 import com.chandrakumar.ms.api.exception.ResourceNotFoundException;
-import com.chandrakumar.ms.api.person.dto.PersonDTO;
 import com.chandrakumar.ms.api.person.entity.Person;
 import com.chandrakumar.ms.api.person.mapper.PersonMapper;
 import com.chandrakumar.ms.api.person.repository.PersonRepository;
+import com.chandrakumar.ms.api.person.swagger.model.PersonDTO;
+import com.chandrakumar.ms.api.person.swagger.model.PersonListResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static com.chandrakumar.ms.api.person.mapper.PersonMapper.getPersonListResponseDTO;
 import static com.chandrakumar.ms.api.person.util.PersonConstant.*;
 import static com.chandrakumar.ms.api.util.CommonUtil.validateUUID;
 
@@ -28,10 +30,12 @@ public class SimplePersonQueryService implements PersonQueryService {
     }
 
     @Override
-    public List<PersonDTO> getAllPerson() {
+    public PersonListResponseDTO getAllPerson() {
 
         final List<Person> personList = personRepository.findAll();
-        return getPersonDTOList(personList);
+
+        final List<PersonDTO> personDTOList = getPersonDTOList(personList);
+        return getPersonListResponseDTO(personDTOList);
     }
 
     private List<PersonDTO> getPersonDTOList(final List<Person> personList) {

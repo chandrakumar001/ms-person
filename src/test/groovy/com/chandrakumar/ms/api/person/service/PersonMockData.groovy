@@ -1,9 +1,11 @@
 package com.chandrakumar.ms.api.person.service
 
-import com.chandrakumar.ms.api.person.dto.PersonDTO
-import com.chandrakumar.ms.api.person.dto.PersonNameDTO
+
 import com.chandrakumar.ms.api.person.entity.Person
 import com.chandrakumar.ms.api.person.entity.PersonName
+import com.chandrakumar.ms.api.person.swagger.model.PersonBareDTO
+import com.chandrakumar.ms.api.person.swagger.model.PersonDTO
+import com.chandrakumar.ms.api.person.swagger.model.PersonNameDTO
 
 class PersonMockData {
 
@@ -11,17 +13,33 @@ class PersonMockData {
                                String firstName,
                                String lastName,
                                String age) {
+        PersonBareDTO personBareDTO = personBareDTO(
+                emailId,
+                firstName,
+                lastName,
+                age
+        )
+        PersonDTO personDTO = new PersonDTO()
+        personDTO.personId = UUID.fromString("d6f02a17-c676-4b1b-ae39-e3b12f47c407")
+        personDTO.data = personBareDTO
+        personDTO
+    }
+
+    static PersonBareDTO personBareDTO(String emailId,
+                                       String firstName,
+                                       String lastName,
+                                       String age) {
 
         PersonNameDTO personNameDTO = personNameDTO(
                 firstName,
                 lastName
         )
-        PersonDTO personDTO = new PersonDTO()
-        personDTO.emailId = emailId
-        personDTO.personName = personNameDTO
-        personDTO.age = age
-        personDTO.favouriteColour = "blue"
-        personDTO
+        PersonBareDTO personBareDTO = new PersonBareDTO()
+        personBareDTO.emailId = emailId
+        personBareDTO.personName = personNameDTO
+        personBareDTO.age = age
+        personBareDTO.favouriteColour = "blue"
+        personBareDTO
     }
 
     private static PersonNameDTO personNameDTO(String firstName,

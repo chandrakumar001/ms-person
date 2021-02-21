@@ -1,9 +1,9 @@
 ##Changelog config
 
 #####Release folder format:
-* 2020.10
-* 2020.11
-* 2020.12
+* 2021.1
+* 2021.2
+* 2021.3
 
 #####File Format:
      'feature-[PROJECT-ID]-[Story/Subtast-ID].md

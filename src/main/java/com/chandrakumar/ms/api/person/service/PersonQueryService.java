@@ -1,6 +1,7 @@
 package com.chandrakumar.ms.api.person.service;
 
-import com.chandrakumar.ms.api.person.dto.PersonDTO;
+import com.chandrakumar.ms.api.person.swagger.model.PersonDTO;
+import com.chandrakumar.ms.api.person.swagger.model.PersonListResponseDTO;
 
 import java.util.List;
 
@@ -15,9 +16,9 @@ public interface PersonQueryService {
      * Retrieves all peerson.
      * If the person list does not exist, a {@link com.chandrakumar.ms.api.exception.NoRecordFoundException} will be thrown.
      *
-     * @return the List<PersonDTO> details
+     * @return the PersonListResponseDTO details
      */
-    List<PersonDTO> getAllPerson();
+    PersonListResponseDTO getAllPerson();
 
     /**
      * Retrieves a person by the id.

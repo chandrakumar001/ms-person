@@ -1,6 +1,6 @@
 package com.chandrakumar.ms.api.person.validation;
 
-import com.chandrakumar.ms.api.person.dto.PersonDTO;
+import com.chandrakumar.ms.api.person.swagger.model.PersonBareDTO;
 
 import java.util.Optional;
 
@@ -16,13 +16,13 @@ public class PersonValidator {
         throw new IllegalStateException("PersonValidator class");
     }
 
-    public static Optional<String> validatePersonDTO(final PersonDTO personDTO) {
+    public static Optional<String> validatePersonDTO(final PersonBareDTO personBareDTO) {
 
-        if (notValidateEmail(personDTO.getEmailId())) {
+        if (notValidateEmail(personBareDTO.getEmailId())) {
             return Optional.of(ERROR_EMAIL_ID_IS_INVALID_FORMAT);
         }
 
-        if (DEFAULT_AGE_ELIGIBLE > Integer.parseInt(personDTO.getAge())) {
+        if (DEFAULT_AGE_ELIGIBLE > Integer.parseInt(personBareDTO.getAge())) {
             return Optional.of(ERROR_THE_AGE_MUST_BE_18);
         }
         return Optional.empty();
