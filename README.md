@@ -14,5 +14,7 @@
     
     http://localhost:9000/projects
     
+    Build Triggers-->Poll SCM
+
     
     
