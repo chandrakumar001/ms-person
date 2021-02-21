@@ -1,11 +1,17 @@
 package com.chandrakumar.ms.api.person;
 
+import com.chandrakumar.ms.api.PersonAPIApplication;
 import com.intuit.karate.Results;
 import com.intuit.karate.Runner;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -14,15 +20,15 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-//@ExtendWith(SpringExtension.class)
-//@SpringBootTest(
-//        classes = PersonAPIApplication.class,
-//        webEnvironment = SpringBootTest.
-//                WebEnvironment.DEFINED_PORT, value = "server.port=3000"
-//)
-//@AutoConfigureMockMvc
-//@ActiveProfiles("test")
-public class PersonAPIIntegrationTest {
+@ExtendWith(SpringExtension.class)
+@SpringBootTest(
+        classes = PersonAPIApplication.class,
+        webEnvironment = SpringBootTest.
+                WebEnvironment.DEFINED_PORT, value = "server.port=3000"
+)
+@AutoConfigureMockMvc
+@ActiveProfiles("test")
+public class PersonAPIIT {
 
     private static final String JSON = "json";
     private static final String PATH_NAME = "target";

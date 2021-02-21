@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="PersonAPIIntegrationTest-local" type="JUnit" factoryName="JUnit" singleton="false">
+  <configuration default="false" name="PersonAPIIT-local" type="JUnit" factoryName="JUnit" singleton="false">
     <module name="ms-person" />
     <useClassPathOnly />
     <extension name="coverage">
@@ -9,7 +9,7 @@
       </pattern>
     </extension>
     <option name="PACKAGE_NAME" value="com.chandrakumar.ms.api.person" />
-    <option name="MAIN_CLASS_NAME" value="com.chandrakumar.ms.api.person.PersonAPIIntegrationTest" />
+    <option name="MAIN_CLASS_NAME" value="com.chandrakumar.ms.api.person.PersonAPIIT" />
     <option name="METHOD_NAME" value="" />
     <option name="TEST_OBJECT" value="class" />
     <option name="PARAMETERS" value="" />

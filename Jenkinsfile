@@ -1,25 +1,19 @@
 pipeline {
   agent any 
     stages {
-        stage('Build') {
+        // Build
+        stage('Build and Test') {
             steps {
                 // sh mvn clean install
                 bat 'mvn clean install'
             }
         }
-        stage('Test') {
-            parallel {
-                stage('Unit Test') {
-                    steps {
-                      echo "Running the unit test..."
-                    }
-                 }
-                stage('Integration test') {
-                    steps {
-                      echo "Running the unit test..."
-                    }
-                 }
+        // Deploy
+        stage('Deploy') {
+            steps {
+               echo "Running the Deploy..."
             }
         }
+        //end
     }
   }
