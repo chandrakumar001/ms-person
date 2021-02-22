@@ -4,9 +4,9 @@
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
-* [Application URL(Swagger)](#Application URL(Swagger))
+* [Application URL-Swagger](#Application URL-Swagger)
 * [Cloudfoundry](#Cloudfoundry)
-* [Additional Information(Optional)](#Additional Information(Optional))
+* [Additional Information-Optional](#Additional Information-Optional)
 
 
 
@@ -20,15 +20,14 @@ This project for Person microservice and used lasted version spring boot, swagge
  * Spring boot/data jpa/Swagger(OpenAPI)
  * In-memory database: H2 database
  * Groovy-Spock(Junit test)
- * Karate framework(integration-test)
+ * Karate framework(Integration-test)
+ * CI/CD-Jekins Pipeline
 
 #### Project Structure
     src
       integration-test
       main
       test
-       
-   
    
 ## Setup
 
@@ -51,15 +50,8 @@ This project for Person microservice and used lasted version spring boot, swagge
         
         mvn package -Dmaven.test.skip=true
 
-    
-
-First Header  | Second Header
-------------- | -------------
-Content Cell  | Content Cell
-Content Cell  | Content Cell
-
-
-## Application URL(Swagger):
+## Application URL-Swagger:
+  Perform all operation like create, update,delete and show all list.
   
   Local Swagger:
   <http://localhost:8080/swagger-ui.html>
@@ -68,13 +60,98 @@ Content Cell  | Content Cell
    <https://ms-person.mybluemix.net/swagger-ui.html>
 
     
+    Sample Output: please refer output folder
+
+POST: https://ms-person.mybluemix.net/v1/persons
+
+please change email id
+
+    {
+      "emailId": "test@gmail.com",
+      "personName": {
+        "firstName": "test",
+        "lastName": "k"
+      },
+      "age": "19",
+      "favouriteColour": "blue"
+    }
+
+output:
+    
+    {
+      "personId": "bf9b804f-ebe6-4f53-ae91-b370fc541785",
+      "data": {
+        "emailId": "test@gmail.com",
+        "personName": {
+          "firstName": "test",
+          "lastName": "k"
+        },
+        "age": "19",
+        "favouriteColour": "blue"
+      }
+    }
+
+GET   https://ms-person.mybluemix.net/v1/persons/bf9b804f-ebe6-4f53-ae91-b370fc541785
+   
+    {
+     "personId": "bf9b804f-ebe6-4f53-ae91-b370fc541785",
+     "data": {
+       "emailId": "test@gmail.com",
+       "personName": {
+         "firstName": "test",
+         "lastName": "k"
+       },
+       "age": "19",
+       "favouriteColour": "blue"
+     }
+    }
+  
+PUT  https://ms-person.mybluemix.net/v1/persons/bf9b804f-ebe6-4f53-ae91-b370fc541785
+
+    {
+      "emailId": "test@gmail.com",
+        "personName": {
+          "firstName": "test1",
+          "lastName": "k"
+        },
+        "age": "19",
+        "favouriteColour": "red"
+    }
+ 
+ output:
+    
+    {
+      "personId": "bf9b804f-ebe6-4f53-ae91-b370fc541785",
+      "data": {
+        "emailId": "test@gmail.com",
+        "personName": {
+          "firstName": "test1",
+          "lastName": "k"
+        },
+        "age": "19",
+        "favouriteColour": "red"
+      }
+    }
+
+Delete: https://ms-person.mybluemix.net/v1/persons/bf9b804f-ebe6-4f53-ae91-b370fc541785
+     
+     refer output folder
+
+GET  https://ms-person.mybluemix.net/v1/persons
+    show all list of person
+    
+    refer output folder
+
+     
+    
+    
 ## Cloudfoundry
 
     ibmcloud login -a https://cloud.ibm.com -u passcode -p <passcode>
     ibmcloud target --cf
     ibmcloud cf push  -f cloudfoundry/manifest.yml  --vars-file cloudfoundry/dev-vars.yml
 
-## Additional Information(Optional)
+## Additional Information-Optional
 #### Jenkins CD/CD pipeline step
 
  - [x] A completed task Locally Download and install jenkins 
