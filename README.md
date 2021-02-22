@@ -1,6 +1,9 @@
 # ms-person
 
 
+    Go to the Github repo -> Settings -> Webhooks
+    http://<public-url>/github-webhook
+    
     
     mvn install -DskipTests=true
     mvn package -Dmaven.test.skip=true
@@ -11,7 +14,7 @@
     
     http://localhost:9090/
     
-    Jenkins Plugin: Cucumber reports
+    Jenkins Plugin: Cucumber reports,Github integration plugin
     
     SonarQube:
     
