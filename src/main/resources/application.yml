@@ -35,6 +35,6 @@ springdoc:
   swagger-ui:
     path: '/swagger-ui.html'
     operationsSorter: method
-app:
-  write:
-    enabled: false
+#app:
+#  write:
+#    enabled: false
