@@ -8,8 +8,23 @@ pipeline {
         // Build
         stage('Build') {
             steps {
+                // Clean before build
+                cleanWs()
+                // We need to explicitly checkout from SCM here
+                checkout scm
                 // sh mvn clean install
                 bat 'mvn clean compile'
+            }
+            post {
+                // Clean after build
+                always {
+                    cleanWs(cleanWhenNotBuilt: false,
+                            deleteDirs: true,
+                            disableDeferredWipeout: true,
+                            notFailBuild: true,
+                            patterns: [[pattern: '.gitignore', type: 'INCLUDE'],
+                                       [pattern: '.propsfile', type: 'EXCLUDE']])
+                }
             }
         }
         // Build
