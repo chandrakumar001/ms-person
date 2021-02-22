@@ -8,13 +8,13 @@ Feature: Test Person API
     Given def req =
     """
         {
-          "email_id": "osaimar12@gmail.com",
-          "person_name": {
-          "first_name": "sarah",
-          "last_name": "r"
+          "emailId": "osaimar12@gmail.com",
+          "personName": {
+          "firstName": "sarah",
+          "lastName": "r"
           },
           "age": "32",
-          "favourite_colour": "blue"
+          "favouriteColour": "blue"
         }
     """
 

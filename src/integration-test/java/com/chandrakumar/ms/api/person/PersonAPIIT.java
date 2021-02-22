@@ -20,14 +20,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(
-        classes = PersonAPIApplication.class,
-        webEnvironment = SpringBootTest.
-                WebEnvironment.DEFINED_PORT, value = "server.port=3000"
-)
-@AutoConfigureMockMvc
-@ActiveProfiles("test")
+//@ExtendWith(SpringExtension.class)
+//@SpringBootTest(
+//        classes = PersonAPIApplication.class,
+//        webEnvironment = SpringBootTest.
+//                WebEnvironment.DEFINED_PORT, value = "server.port=3000"
+//)
+//@AutoConfigureMockMvc
+//@ActiveProfiles("test")
 public class PersonAPIIT {
 
     private static final String JSON = "json";

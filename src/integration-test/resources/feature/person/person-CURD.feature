@@ -9,13 +9,13 @@ Feature: Test Person API
     Given def req =
     """
         {
-          "email_id": "sarah.r5@gmail.com",
-          "person_name": {
-          "first_name": "sarah",
-          "last_name": "r"
+          "emailId": "sarah.r5@gmail.com",
+          "personName": {
+          "firstName": "sarah",
+          "lastName": "r"
           },
           "age": "32",
-          "favourite_colour": "blue"
+          "favouriteColour": "blue"
         }
     """
 
@@ -23,9 +23,9 @@ Feature: Test Person API
     And request req
     When method post
     Then status 201
+    * def id = response.personId
 
     #Get the person id
-    * def id = 'd6f02a17-c676-4b1b-ae39-e3b12f47c400'
     Given path 'v1/persons/'+id
     When method get
     Then status 200
@@ -43,4 +43,4 @@ Feature: Test Person API
     Given path 'v1/persons'
     When method GET
     Then status 200
-    And assert response.length == 4
+    And assert response.count == 4
