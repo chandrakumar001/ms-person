@@ -8,11 +8,9 @@
 * [Cloudfoundry](#Cloudfoundry)
 * [Additional Information-Optional](#Additional-Information-Optional)
 
-
-
+## Problem 1
 ## General info
 This project for Person microservice and used lasted version spring boot, swagger(OpenAPI),Code Generator swagger.
-  
 
 #### Technologies
 
@@ -141,7 +139,9 @@ GET  https://ms-person.mybluemix.net/v1/persons
     show all list of person
     
     refer output folder
-
+#### Error Message
+    
+    src/main/resources/messages.properties
      
     
     
