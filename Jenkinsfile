@@ -1,5 +1,6 @@
 pipeline {
   agent any
+    // auto triggers
     triggers {
         cron('H */4 * * 1-5')
     }
