@@ -9,6 +9,7 @@ import com.chandrakumar.ms.api.person.repository.PersonRepository;
 import com.chandrakumar.ms.api.person.swagger.model.PersonDTO;
 import com.chandrakumar.ms.api.person.swagger.model.PersonListResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -60,7 +61,7 @@ public class SimplePersonQueryService implements PersonQueryService {
     }
 
     private Person existingPerson(final UUID personId) {
-        return personRepository.findById(personId)
+        return personRepository.findByPersonId(personId)
                 .orElseThrow(this::personNotFoundException);
     }
 

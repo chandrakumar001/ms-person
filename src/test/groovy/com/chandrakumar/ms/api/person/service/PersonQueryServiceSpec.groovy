@@ -1,6 +1,6 @@
 package com.chandrakumar.ms.api.person.service
 
-
+import com.chandrakumar.ms.api.common.audit.Action
 import com.chandrakumar.ms.api.person.entity.Person
 import com.chandrakumar.ms.api.person.repository.PersonRepository
 import com.chandrakumar.ms.api.person.swagger.model.PersonDTO
@@ -33,6 +33,8 @@ class PersonQueryServiceSpec extends Specification {
         def age = "28"
 
         final Person person = person(emailId, firstName, lastName, age)
+        person.action = Action.UPDATED
+
         personRepository.findAll() >> List.of(person)
 
         when: "that person is saved in the DB"
@@ -75,9 +77,10 @@ class PersonQueryServiceSpec extends Specification {
         def age = "28"
 
         final Person person = person(emailId, firstName, lastName, age)
-        person.personId= personIdUUID
+        person.personId = personIdUUID
+        person.action = Action.UPDATED
 
-        personRepository.findById(_ as UUID) >> Optional.of(person)
+        personRepository.findByPersonId(_ as UUID) >> Optional.of(person)
 
         when: "that person is saved in the DB"
         PersonDTO personDTO = queryService.getPersonById(personId)
@@ -92,7 +95,7 @@ class PersonQueryServiceSpec extends Specification {
         given: "a person dao that assigns an ID to person"
 
         def actualErrorMessage = null
-        personRepository.findById(_ as UUID) >> mockDBPersonData
+        personRepository.findByPersonId(_ as UUID) >> mockDBPersonData
 
         when: "that person is saved in the DB"
         try {
