@@ -71,7 +71,7 @@ public class GlobalExceptionHandler {
         final ApiError apiError = ApiError.builder()
                 .type(BAD_REQUEST.getReasonPhrase())
                 .code(BAD_REQUEST.value())
-                .message(httpMediaTypeNotAcceptableException.getMessage())
+                .message(getMessage(httpMediaTypeNotAcceptableException.getMessage()))
                 .timestamp(LocalDateTime.now())
                 .build();
         return new ResponseEntity<>(apiError, BAD_REQUEST);
@@ -84,7 +84,7 @@ public class GlobalExceptionHandler {
         final ApiError apiError = ApiError.builder()
                 .type(BAD_REQUEST.getReasonPhrase())
                 .code(BAD_REQUEST.value())
-                .message(httpHeaderException.getMessage())
+                .message(getMessage(httpHeaderException.getMessage()))
                 .timestamp(LocalDateTime.now())
                 .build();
         return new ResponseEntity<>(apiError, BAD_REQUEST);
@@ -97,7 +97,7 @@ public class GlobalExceptionHandler {
         final ApiError apiError = ApiError.builder()
                 .type(BAD_REQUEST.getReasonPhrase())
                 .code(BAD_REQUEST.value())
-                .message(fieldValidationException.getMessage())
+                .message(getMessage(fieldValidationException.getMessage()))
                 .timestamp(LocalDateTime.now())
                 .build();
         return new ResponseEntity<>(apiError, BAD_REQUEST);
@@ -110,7 +110,7 @@ public class GlobalExceptionHandler {
         final ApiError apiError = ApiError.builder()
                 .type(OK.getReasonPhrase())
                 .code(OK.value())
-                .message(noRecordFoundException.getMessage())
+                .message(getMessage(noRecordFoundException.getMessage()))
                 .timestamp(LocalDateTime.now())
                 .build();
         return new ResponseEntity<>(apiError, OK);
@@ -123,7 +123,7 @@ public class GlobalExceptionHandler {
         final ApiError apiError = ApiError.builder()
                 .type(NOT_FOUND.getReasonPhrase())
                 .code(NOT_FOUND.value())
-                .message(resourceNotFoundException.getMessage())
+                .message(getMessage(resourceNotFoundException.getMessage()))
                 .timestamp(LocalDateTime.now())
                 .build();
         return new ResponseEntity<>(apiError, NOT_FOUND);
@@ -136,7 +136,7 @@ public class GlobalExceptionHandler {
         final ApiError apiError = ApiError.builder()
                 .type(CONFLICT.getReasonPhrase())
                 .code(CONFLICT.value())
-                .message(resourceAlreadyFoundException.getMessage())
+                .message(getMessage(resourceAlreadyFoundException.getMessage()))
                 .timestamp(LocalDateTime.now())
                 .build();
         return new ResponseEntity<>(apiError, CONFLICT);

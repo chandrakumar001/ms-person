@@ -9,7 +9,6 @@ import com.chandrakumar.ms.api.person.repository.PersonRepository;
 import com.chandrakumar.ms.api.person.swagger.model.PersonDTO;
 import com.chandrakumar.ms.api.person.swagger.model.PersonListResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -18,7 +17,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static com.chandrakumar.ms.api.person.mapper.PersonMapper.getPersonListResponseDTO;
-import static com.chandrakumar.ms.api.person.util.PersonConstant.*;
+import static com.chandrakumar.ms.api.person.util.PersonErrorCodeConstant.*;
 import static com.chandrakumar.ms.api.util.CommonUtil.validateUUID;
 
 @Service

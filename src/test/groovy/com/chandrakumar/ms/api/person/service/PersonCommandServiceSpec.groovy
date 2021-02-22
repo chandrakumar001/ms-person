@@ -11,7 +11,7 @@ import spock.lang.Unroll
 
 import static com.chandrakumar.ms.api.person.service.PersonMockData.person
 import static com.chandrakumar.ms.api.person.service.PersonMockData.personBareDTO
-import static com.chandrakumar.ms.api.person.util.PersonConstant.*
+import static com.chandrakumar.ms.api.person.util.PersonErrorCodeConstant.*
 
 @Unroll
 class PersonCommandServiceSpec extends Specification {

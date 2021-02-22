@@ -1,6 +1,11 @@
 # ms-person
 
 
+## Programming Language
+   1.Java
+   
+           
+
     Go to the Github repo -> Settings -> Webhooks
     http://<public-url>/github-webhook
     
@@ -8,10 +13,13 @@
     mvn install -DskipTests=true
     mvn package -Dmaven.test.skip=true
     
+    Cloudfoundry:
+    -------------
+    ibmcloud login -a https://cloud.ibm.com -u passcode -p <passcode>
+    ibmcloud target --cf
     ibmcloud cf push  -f cloudfoundry/manifest.yml  --vars-file cloudfoundry/dev-vars.yml
     
-    Jenkins
-    
+    Jenkins:    
     http://localhost:9090/
     
     Jenkins Plugin: Cucumber reports,Github integration plugin
@@ -36,4 +44,17 @@ Soft Delete:
 Hard Delete: 
     
     It means you are completely removing the record from the table        
+    
+refer: 
+    
+    https://springbootdev.com/2018/03/13/spring-data-jpa-auditing-with-createdby-createddate-lastmodifiedby-and-lastmodifieddate/
+
+Application URL(Swagger):
+  
+    Local
+    http://localhost:8080/swagger-ui.html
+    
+    IBM cloud
+    https://ms-person.mybluemix.net/swagger-ui.html
+     
     

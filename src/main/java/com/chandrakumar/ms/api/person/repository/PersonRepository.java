@@ -1,7 +1,6 @@
 package com.chandrakumar.ms.api.person.repository;
 
 import com.chandrakumar.ms.api.person.entity.Person;
-import com.chandrakumar.ms.api.person.util.PersonConstant;
 import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

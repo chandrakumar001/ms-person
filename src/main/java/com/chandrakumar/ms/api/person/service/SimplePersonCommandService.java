@@ -13,17 +13,14 @@ import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.UUID;
 
 import static com.chandrakumar.ms.api.common.audit.Action.CREATED;
 import static com.chandrakumar.ms.api.common.audit.Action.UPDATED;
 import static com.chandrakumar.ms.api.person.mapper.PersonMapper.mapToPerson;
-import static com.chandrakumar.ms.api.person.util.PersonConstant.*;
+import static com.chandrakumar.ms.api.person.util.PersonErrorCodeConstant.*;
 import static com.chandrakumar.ms.api.person.validation.PersonValidator.validatePersonDTO;
 import static com.chandrakumar.ms.api.util.CommonUtil.validateUUID;
 
