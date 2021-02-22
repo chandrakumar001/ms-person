@@ -28,6 +28,11 @@ pipeline {
             steps {
                 bat 'mvn package -Dmaven.test.skip=true'
             }
+            post {
+                success {
+                    archiveArtifacts 'target/*.jar'
+                }
+            }
         }
         // Deploy
         stage('Deploy') {
