@@ -14,6 +14,9 @@ import static com.chandrakumar.ms.api.person.util.PersonErrorCodeConstant.*
 @Unroll
 class PersonQueryServiceSpec extends Specification {
 
+    public static final int PERSON_TOTAL_COUNT = 1
+    public static final int FIRST_INDEX = 0
+
     private PersonQueryService queryService
     def personRepository = Mock(PersonRepository)
 
@@ -41,8 +44,8 @@ class PersonQueryServiceSpec extends Specification {
         PersonListResponseDTO personDTOList = queryService.getAllPerson()
 
         then: "the ID is correctly logged"
-        personDTOList.count == 1
-        PersonDTO personDTO = personDTOList.items.get(0);
+        personDTOList.count == PERSON_TOTAL_COUNT
+        PersonDTO personDTO = personDTOList.persons.get(FIRST_INDEX);
         personDTO?.data?.emailId == emailId
         personDTO?.data?.age == age
     }

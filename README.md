@@ -1,44 +1,106 @@
 # ms-person
 
+## Table of contents
+* [General info](#general-info)
+* [Technologies](#technologies)
+* [Setup](#setup)
+* [Application URL(Swagger)](#Application URL(Swagger))
+* [Cloudfoundry](#Cloudfoundry)
+* [Additional Information(Optional)](#Additional Information(Optional))
 
-## Programming Language
-   1.Java
+
+
+## General info
+This project for Person microservice and used lasted version spring boot, swagger(OpenAPI),Code Generator swagger.
+  
+
+#### Technologies
+
+ * Java: 11
+ * Spring boot/data jpa/Swagger(OpenAPI)
+ * In-memory database: H2 database
+ * Groovy-Spock(Junit test)
+ * Karate framework(integration-test)
+
+#### Project Structure
+    src
+      integration-test
+      main
+      test
+       
    
-Application Name:
- ms-means Microservice
- person-Application Name
+   
+## Setup
+
+#### Clone the project
+   
+   
+        git clone https://github.com/chandrakumar001/ms-person
+
+#### Running Tests
+
+  You can run tests by invoking the following command. 
+
+        cd ms-person
+        mvn clean install
+        mvn test
+    
+### Packaging
+        
+  You can package by invoking the following command. 
+        
+        mvn package -Dmaven.test.skip=true
+
     
 
-    Go to the Github repo -> Settings -> Webhooks
-    http://<public-url>/github-webhook
+First Header  | Second Header
+------------- | -------------
+Content Cell  | Content Cell
+Content Cell  | Content Cell
+
+
+## Application URL(Swagger):
+  
+  Local Swagger:
+  <http://localhost:8080/swagger-ui.html>
+   
+  IBM cloud:
+   <https://ms-person.mybluemix.net/swagger-ui.html>
+
     
-    
-    mvn install -DskipTests=true
-    mvn package -Dmaven.test.skip=true
-    
-    Cloudfoundry:
-    -------------
+## Cloudfoundry
+
     ibmcloud login -a https://cloud.ibm.com -u passcode -p <passcode>
     ibmcloud target --cf
     ibmcloud cf push  -f cloudfoundry/manifest.yml  --vars-file cloudfoundry/dev-vars.yml
-    
-    Jenkins:    
-    http://localhost:9090/
-    
-    Jenkins Plugin: Cucumber reports,Github integration plugin
-    
-    SonarQube:
-    
-    http://localhost:9000/projects
-    
-    Build Triggers-->Poll SCM
-    
-    Next click the option to Add post-build option and choose the option of “Publish Junit test result report”
 
+## Additional Information(Optional)
+#### Jenkins CD/CD pipeline step
 
-Attempt | #1 | #2 | #3 | #4 | #5 | #6 | #7 | #8 | #9 | #10 | #11
---- | --- | --- | --- |--- |--- |--- |--- |--- |--- |--- |---
-Seconds | 301 | 283 | 290 | 286 | 289 | 285 | 287 | 287 | 272 | 276 | 269
+ - [x] A completed task Locally Download and install jenkins 
+ - [x] A completed task Access the  below endpoint
+ 
+     http://localhost:9090/
+
+Install Jenkins Plugin:
+
+       `Cucumber reports
+        Github integration plugin'
+        
+####   SonarQube:
+    
+   Code quality for application
+    
+        http://localhost:9000/projects
+    
+##### Application Name:
+
+     ms --->    means Microservice
+     person --> Application Name
+     Example: ms-person     
+  
+  
+##### Spring data JPA:
 
 Soft Delete: 
     
@@ -47,17 +109,35 @@ Soft Delete:
 Hard Delete: 
     
     It means you are completely removing the record from the table        
+
+##### Application Scaling:
+
+Scaling Horizontally:
+
+Incoming requests to your application are automatically load balanced across all instances of your application, and each instance handles tasks in parallel with every other instance. 
+
+    ibmcloud cf scale ms-person -i 2
+
+Scaling Vertically:
+
+Vertically scaling an application changes the disk space limit or memory limit that Cloud Foundry applies to all instances of the application
+
+
+-k DISK to change the disk space limit applied to all instances of your application
+
+-m MEMORY must be an integer followed by either an M, for megabytes, or G, for gigabytes
+
+
+    ibmcloud cf scale ms-person -k 512M
+    ibmcloud cf scale ms-person -m 1G
     
-refer: 
+Show all apps:
+        
+        ibmcloud cf apps
+                
+Refer URL: 
     
     https://springbootdev.com/2018/03/13/spring-data-jpa-auditing-with-createdby-createddate-lastmodifiedby-and-lastmodifieddate/
+    https://piotrminkowski.com/2020/02/20/microservices-api-documentation-with-springdoc-openapi/
 
-Application URL(Swagger):
-  
-    Local
-    http://localhost:8080/swagger-ui.html
-    
-    IBM cloud
-    https://ms-person.mybluemix.net/swagger-ui.html
-     
     
