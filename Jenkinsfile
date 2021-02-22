@@ -9,9 +9,8 @@ pipeline {
             }
         }
         // Build
-        stage('Build and Test') {
+        stage('Test') {
             steps {
-                // sh mvn clean install
                 bat 'mvn test'
             }
             post{
@@ -20,10 +19,16 @@ pipeline {
               }
             }
         }
+        // Build
+        stage('Package') {
+            steps {
+                bat 'mvn package -Dmaven.test.skip=true'
+            }
+        }
         // Deploy
         stage('Deploy') {
             steps {
-               bat 'mvn clean install'
+                echo 'Deploying'
             }
         }
         //end
