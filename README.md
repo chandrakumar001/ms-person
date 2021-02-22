@@ -4,9 +4,9 @@
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
-* [Application URL-Swagger](#Application URL-Swagger)
+* [Application URL Swagger](#Application-URL-Swagger)
 * [Cloudfoundry](#Cloudfoundry)
-* [Additional Information-Optional](#Additional Information-Optional)
+* [Additional Information-Optional](#Additional-Information-Optional)
 
 
 
@@ -50,7 +50,7 @@ This project for Person microservice and used lasted version spring boot, swagge
         
         mvn package -Dmaven.test.skip=true
 
-## Application URL-Swagger:
+## Application-URL-Swagger:
   Perform all operation like create, update,delete and show all list.
   
   Local Swagger:
@@ -151,7 +151,7 @@ GET  https://ms-person.mybluemix.net/v1/persons
     ibmcloud target --cf
     ibmcloud cf push  -f cloudfoundry/manifest.yml  --vars-file cloudfoundry/dev-vars.yml
 
-## Additional Information-Optional
+## Additional-Information-Optional
 #### Jenkins CD/CD pipeline step
 
  - [x] A completed task Locally Download and install jenkins 
