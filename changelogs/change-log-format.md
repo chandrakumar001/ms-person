@@ -6,8 +6,10 @@
 * 2021.3
 
 #####File Format:
+
      'feature-[PROJECT-ID]-[Story/Subtast-ID].md
 ######Example:
+
     feature-ECOM-214.md
  
 ##### Data Format:
