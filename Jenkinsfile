@@ -2,8 +2,8 @@ pipeline {
   agent any
     // auto triggers
     triggers {
-        //pollSCM('H/5 * * * *')
-        pollSCM('H */4 * * 1-5')
+        pollSCM('H/5 * * * *')
+        //pollSCM('H */4 * * 1-5')
     }
     stages {
         // Build
