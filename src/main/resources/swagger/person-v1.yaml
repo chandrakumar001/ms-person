@@ -5,7 +5,7 @@ info:
 servers:
   - url: /api
 paths:
-  "/v1/person":
+  "/v1/people":
     x-swagger-router-controller: person
     get:
       summary: Get all person for person.
@@ -39,7 +39,7 @@ paths:
                 $ref: "#/components/schemas/person-bare"
         "400":
           description: error, tbd.
-  "/v1/Person/{person-id}":
+  "/v1/people/{person-id}":
     x-swagger-router-controller: Person
     get:
       summary: get Person by id
@@ -159,7 +159,7 @@ components:
         count:
           type: integer
           example: 15
-        persons:
+        people:
           type: array
           items:
             $ref: "#/components/schemas/person"

@@ -45,7 +45,7 @@ class DefaultPersonQueryServiceSpec extends Specification {
 
         then: "the ID is correctly logged"
         personDTOList.count == PERSON_TOTAL_COUNT
-        PersonDTO personDTO = personDTOList.persons.get(FIRST_INDEX);
+        PersonDTO personDTO = personDTOList?.people?.get(FIRST_INDEX);
         personDTO?.data?.emailId == emailId
         personDTO?.data?.age == age
     }

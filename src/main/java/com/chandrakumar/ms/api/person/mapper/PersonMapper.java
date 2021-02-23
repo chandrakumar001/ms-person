@@ -20,7 +20,7 @@ public class PersonMapper {
 
         PersonListResponseDTO personListResponseDTO = new PersonListResponseDTO();
         personListResponseDTO.setCount(personDTOList.size());
-        personListResponseDTO.setPersons(personDTOList);
+        personListResponseDTO.setPeople(personDTOList);
         return personListResponseDTO;
     }
 

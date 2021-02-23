@@ -60,7 +60,7 @@ This project for Person microservice and used lasted version spring boot, swagge
     
     Sample Output: please refer output folder
 
-POST: https://ms-person.mybluemix.net/v1/persons
+POST: https://ms-person.mybluemix.net/v1/people
 
 please change email id
 
@@ -77,7 +77,7 @@ please change email id
 output:
     
     {
-      "personId": "bf9b804f-ebe6-4f53-ae91-b370fc541785",
+      "personId": "9ff7233a-9c63-4dbd-ab33-0d539aae0905",
       "data": {
         "emailId": "test@gmail.com",
         "personName": {
@@ -89,10 +89,10 @@ output:
       }
     }
 
-GET   https://ms-person.mybluemix.net/v1/persons/bf9b804f-ebe6-4f53-ae91-b370fc541785
+GET   https://ms-person.mybluemix.net/v1/people/9ff7233a-9c63-4dbd-ab33-0d539aae0905
    
     {
-     "personId": "bf9b804f-ebe6-4f53-ae91-b370fc541785",
+     "personId": "9ff7233a-9c63-4dbd-ab33-0d539aae0905",
      "data": {
        "emailId": "test@gmail.com",
        "personName": {
@@ -104,7 +104,7 @@ GET   https://ms-person.mybluemix.net/v1/persons/bf9b804f-ebe6-4f53-ae91-b370fc5
      }
     }
   
-PUT  https://ms-person.mybluemix.net/v1/persons/bf9b804f-ebe6-4f53-ae91-b370fc541785
+PUT  https://ms-person.mybluemix.net/v1/people/9ff7233a-9c63-4dbd-ab33-0d539aae0905
 
     {
       "emailId": "test@gmail.com",
@@ -119,7 +119,7 @@ PUT  https://ms-person.mybluemix.net/v1/persons/bf9b804f-ebe6-4f53-ae91-b370fc54
  output:
     
     {
-      "personId": "bf9b804f-ebe6-4f53-ae91-b370fc541785",
+      "personId": "9ff7233a-9c63-4dbd-ab33-0d539aae0905",
       "data": {
         "emailId": "test@gmail.com",
         "personName": {
@@ -131,19 +131,19 @@ PUT  https://ms-person.mybluemix.net/v1/persons/bf9b804f-ebe6-4f53-ae91-b370fc54
       }
     }
 
-Delete: https://ms-person.mybluemix.net/v1/persons/bf9b804f-ebe6-4f53-ae91-b370fc541785
+Delete: https://ms-person.mybluemix.net/v1/people/9ff7233a-9c63-4dbd-ab33-0d539aae0905
      
-     refer output folder
+     refer output folder :: "delete-person.PNG"
 
-GET  https://ms-person.mybluemix.net/v1/persons
+GET  https://ms-person.mybluemix.net/v1/people
     show all list of person
     
-    refer output folder
+    refer output folder :: "get-person.PNG"
+    
 #### Error Message
     
     src/main/resources/messages.properties
-     
-    
+        
     
 ## Cloudfoundry
 
