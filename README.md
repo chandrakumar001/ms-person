@@ -60,6 +60,25 @@ This project for Person microservice and used lasted version spring boot, swagge
     
     Sample Output: please refer output folder
 
+#### Database:
+
+ To Store the data into table, I used `person_id` primary key as UUID format
+ after create any object,if would you like `update/delete/getById` we should pass primary key
+  
+ 
+ To identity the object is unique, I used `email_id` as candidate key
+ 
+In Order to track object,I Implemented Audit model such `createdBy,creationDate,lastModifiedBy,lastModifiedDate and action(created,deleted,updated)`
+
+##### Mock database data scripts:
+
+    src/main/resources/data.sql
+    src/main/resources/schema.sql
+
+##### In-memory-Database URL:
+
+  `will be update soon`
+  
 POST: https://ms-person.mybluemix.net/v1/people
 
 please change email id
@@ -210,7 +229,9 @@ Vertically scaling an application changes the disk space limit or memory limit t
     
 Show all apps:
         
-        ibmcloud cf apps
+        ibmcloud cf ms-person
+        ibmcloud cf logs ms-person
+        
 ##### Filter logic Order
 
 logging: Clean up activity for before request and after request by using mdc approach 
