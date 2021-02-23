@@ -77,8 +77,13 @@ In Order to track object,I Implemented Audit model such `createdBy,creationDate,
 
 ##### In-memory-Database URL:
 
-  `will be update soon`
-  
+
+https://ms-person.mybluemix.net/h2-console/
+    
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: <empty>
+      
 POST: https://ms-person.mybluemix.net/v1/people
 
 please change email id
