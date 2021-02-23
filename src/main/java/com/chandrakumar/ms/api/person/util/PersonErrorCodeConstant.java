@@ -6,6 +6,7 @@ public class PersonErrorCodeConstant {
         throw new IllegalStateException("PersonErrorCodeConstant class");
     }
 
+    public static final String NUMBER_FORMAT_EXCEPTION_OCCURRED = "Invalid.Number.format";
     public static final String ERROR_EMAIL_ID_IS_INVALID_FORMAT = "Invalid.format.personBareDTO.EmailId";
     public static final String ERROR_THE_AGE_MUST_BE_18 = "Eligible.personBareDTO.Age";
     public static final String ERROR_THE_PERSON_ID_IS_INVALID_UUID_FORMAT = "Invalid.format.person.personId";

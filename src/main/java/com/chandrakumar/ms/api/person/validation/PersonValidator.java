@@ -21,6 +21,11 @@ public class PersonValidator {
             return Optional.of(ERROR_EMAIL_ID_IS_INVALID_FORMAT);
         }
 
+        try {
+            Integer.parseInt(personBareDTO.getAge());
+        } catch (NumberFormatException e) {
+            return Optional.of(NUMBER_FORMAT_EXCEPTION_OCCURRED);
+        }
         if (DEFAULT_AGE_ELIGIBLE > Integer.parseInt(personBareDTO.getAge())) {
             return Optional.of(ERROR_THE_AGE_MUST_BE_18);
         }

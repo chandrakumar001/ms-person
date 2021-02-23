@@ -2,7 +2,6 @@
   <configuration default="false" name="PersonAPIApplication-local" type="Application" factoryName="Application" singleton="false">
     <option name="MAIN_CLASS_NAME" value="com.chandrakumar.ms.api.PersonAPIApplication" />
     <module name="ms-person" />
-    <option name="VM_PARAMETERS" value="-Dspring.profiles.active=local" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.chandrakumar.ms.api.common.*" />
