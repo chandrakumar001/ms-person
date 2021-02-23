@@ -1,4 +1,4 @@
-package com.chandrakumar.ms.api.exception;
+package com.chandrakumar.ms.api.error;
 
 public class ResourceNotFoundException extends RuntimeException {
 

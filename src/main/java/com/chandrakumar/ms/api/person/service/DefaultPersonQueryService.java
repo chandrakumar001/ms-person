@@ -1,13 +1,14 @@
 package com.chandrakumar.ms.api.person.service;
 
-import com.chandrakumar.ms.api.exception.CommonUtilException;
-import com.chandrakumar.ms.api.exception.NoRecordFoundException;
-import com.chandrakumar.ms.api.exception.ResourceNotFoundException;
+import com.chandrakumar.ms.api.error.FieldValidationException;
+import com.chandrakumar.ms.api.error.NoRecordFoundException;
+import com.chandrakumar.ms.api.error.ResourceNotFoundException;
 import com.chandrakumar.ms.api.person.entity.Person;
 import com.chandrakumar.ms.api.person.mapper.PersonMapper;
 import com.chandrakumar.ms.api.person.repository.PersonRepository;
 import com.chandrakumar.ms.api.person.swagger.model.PersonDTO;
 import com.chandrakumar.ms.api.person.swagger.model.PersonListResponseDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -21,20 +22,23 @@ import static com.chandrakumar.ms.api.person.util.PersonErrorCodeConstant.*;
 import static com.chandrakumar.ms.api.util.CommonUtil.validateUUID;
 
 @Service
-public class SimplePersonQueryService implements PersonQueryService {
+@Slf4j
+public class DefaultPersonQueryService implements PersonQueryService {
 
     private final PersonRepository personRepository;
 
-    public SimplePersonQueryService(@Autowired PersonRepository personRepository) {
+    public DefaultPersonQueryService(@Autowired PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
 
     @Override
     public PersonListResponseDTO getAllPerson() {
+        log.info("called getAllPerson begin");
 
         final List<Person> personList = personRepository.findAll();
 
         final List<PersonDTO> personDTOList = getPersonDTOList(personList);
+        log.info("called getAllPerson end");
         return getPersonListResponseDTO(personDTOList);
     }
 
@@ -50,12 +54,14 @@ public class SimplePersonQueryService implements PersonQueryService {
 
     @Override
     public PersonDTO getPersonById(final String personId) {
+        log.info("called getPersonById begin");
 
         validateUUID(personId, ERROR_THE_PERSON_ID_IS_INVALID_UUID_FORMAT)
-                .ifPresent(CommonUtilException::fieldValidationException);
+                .ifPresent(FieldValidationException::fieldValidationException);
         final UUID personIdUUID = UUID.fromString(personId);
 
         final Person existingPerson = existingPerson(personIdUUID);
+        log.info("called getPersonById begin");
         return PersonMapper.mapToPersonDTO(existingPerson);
     }
 

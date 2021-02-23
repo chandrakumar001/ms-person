@@ -18,7 +18,7 @@ Feature: Test Person API
         }
     """
 
-    Given path 'v1/persons'
+    Given path 'v1/people'
     And request req
     When method post
     Then status 409

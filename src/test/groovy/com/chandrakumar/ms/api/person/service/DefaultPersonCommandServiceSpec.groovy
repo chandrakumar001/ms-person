@@ -14,7 +14,7 @@ import static com.chandrakumar.ms.api.person.service.PersonMockData.personBareDT
 import static com.chandrakumar.ms.api.person.util.PersonErrorCodeConstant.*
 
 @Unroll
-class PersonCommandServiceSpec extends Specification {
+class DefaultPersonCommandServiceSpec extends Specification {
 
     public static final String USER_NAME = "admin"
     private PersonCommandService commandService
@@ -26,14 +26,14 @@ class PersonCommandServiceSpec extends Specification {
      * annotation
      */
     def setup() {
-        commandService = new SimplePersonCommandService(
+        commandService = new DefaultPersonCommandService(
                 personRepository,
                 auditorAware
         )
     }
 
     def "Success::person IDs are logged whenever they are saved in the DB"() {
-        given: "a person dao that assigns an ID to person"
+        given: "a person that assigns"
 
         def emailId = "osaimar19@gmail.com"
         def firstName = "chandra"
@@ -58,7 +58,7 @@ class PersonCommandServiceSpec extends Specification {
     }
 
     def "Failed::person IDs are logged whenever they are saved in the DB"() {
-        given: "a person dao that assigns an ID to person"
+        given: "a person that assigns"
 
         def firstName = "chandra"
         def lastName = "kumar"
@@ -84,7 +84,7 @@ class PersonCommandServiceSpec extends Specification {
     }
 
     def "Success::updatePerson IDs are logged whenever they are saved in the DB"() {
-        given: "a person dao that assigns an ID to person"
+        given: "a person that assigns an ID to person"
         def personId = "d6f02a17-c676-4b1b-ae39-e3b12f47c407"
         def emailId = "osaimar19@gmail.com"
         def firstName = "chandra"
@@ -107,7 +107,7 @@ class PersonCommandServiceSpec extends Specification {
     }
 
     def "Failed::updatePerson IDs are logged whenever they are saved in the DB"() {
-        given: "a person dao that assigns an ID to person"
+        given: "a person that assigns an ID to person"
         def emailId = "osaimar19@gmail.com"
         def firstName = "chandra"
         def lastName = "kumar"
@@ -133,7 +133,7 @@ class PersonCommandServiceSpec extends Specification {
     }
 
     def "Success::deletePerson IDs are logged whenever they are saved in the DB"() {
-        given: "a person dao that assigns an ID to person"
+        given: "a person that assigns an ID to person"
         def personId = "d6f02a17-c676-4b1b-ae39-e3b12f47c407"
         def emailId = "osaimar19@gmail.com"
         def firstName = "chandra"
@@ -155,7 +155,7 @@ class PersonCommandServiceSpec extends Specification {
     }
 
     def "Failed::deletePerson IDs are logged whenever they are saved in the DB"() {
-        given: "a person dao that assigns an ID to person"
+        given: "a person that assigns an ID to person"
 
         def actualErrorMessage = null
         personRepository.findByPersonId(_ as UUID) >> mockDBPersonData

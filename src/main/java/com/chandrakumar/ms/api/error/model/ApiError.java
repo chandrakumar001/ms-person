@@ -1,4 +1,4 @@
-package com.chandrakumar.ms.api.exception.model;
+package com.chandrakumar.ms.api.error.model;
 
 import lombok.Builder;
 import lombok.Getter;

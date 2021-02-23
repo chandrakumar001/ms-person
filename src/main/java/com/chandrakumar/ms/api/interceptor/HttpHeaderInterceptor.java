@@ -1,6 +1,6 @@
 package com.chandrakumar.ms.api.interceptor;
 
-import com.chandrakumar.ms.api.exception.CommonUtilException;
+import com.chandrakumar.ms.api.error.HttpHeaderException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
@@ -31,7 +31,7 @@ public class HttpHeaderInterceptor extends HandlerInterceptorAdapter {
 
         if (isEqualPostAndPutMethod(method)) {
             validateContentTypeAndGetErrorMessage(request)
-                    .ifPresent(CommonUtilException::httpHeaderExceptionException);
+                    .ifPresent(HttpHeaderException::httpHeaderExceptionException);
         }
         return true;
     }

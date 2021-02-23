@@ -6,7 +6,7 @@ Feature: Test Person API
   Scenario Outline: Retrieve the person id,<testStep>,<personId> and <expectedType> and <expectedErrorMessage>
 
     #Get the person id
-    Given path 'v1/persons/'+<personId>
+    Given path 'v1/people/'+<personId>
     When method get
     Then status <expectedCode>
     And match response.message == <expectedErrorMessage>
@@ -21,7 +21,7 @@ Feature: Test Person API
   Scenario Outline: delete the person id,<testStep>,<personId> and <expectedType> and <expectedErrorMessage>
 
     #delete the person id
-    Given path 'v1/persons/'+<personId>
+    Given path 'v1/people/'+<personId>
     When method delete
     Then status <expectedCode>
     And match response.message == <expectedErrorMessage>
@@ -36,7 +36,7 @@ Feature: Test Person API
   Scenario Outline: GET the person id,<testStep>,<personId> and <expectedType> and <expectedErrorMessage>
 
     #delete the person id
-    Given path 'v1/persons/'+<personId>
+    Given path 'v1/people/'+<personId>
     When method GET
     Then status <expectedCode>
     And match response.message == <expectedErrorMessage>

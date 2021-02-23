@@ -1,13 +1,14 @@
 package com.chandrakumar.ms.api.person.service;
 
-import com.chandrakumar.ms.api.exception.CommonUtilException;
-import com.chandrakumar.ms.api.exception.ResourceAlreadyFoundException;
-import com.chandrakumar.ms.api.exception.ResourceNotFoundException;
+import com.chandrakumar.ms.api.error.FieldValidationException;
+import com.chandrakumar.ms.api.error.ResourceAlreadyFoundException;
+import com.chandrakumar.ms.api.error.ResourceNotFoundException;
 import com.chandrakumar.ms.api.person.entity.Person;
 import com.chandrakumar.ms.api.person.mapper.PersonMapper;
 import com.chandrakumar.ms.api.person.repository.PersonRepository;
 import com.chandrakumar.ms.api.person.swagger.model.PersonBareDTO;
 import com.chandrakumar.ms.api.person.swagger.model.PersonDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Service;
@@ -26,14 +27,15 @@ import static com.chandrakumar.ms.api.util.CommonUtil.validateUUID;
 
 @Service
 @Transactional
-public class SimplePersonCommandService implements PersonCommandService {
+@Slf4j
+public class DefaultPersonCommandService implements PersonCommandService {
 
     private static final String UNKNOWN = "unknown";
 
     private final PersonRepository personRepository;
     private final AuditorAware<String> auditorAware;
 
-    public SimplePersonCommandService(
+    public DefaultPersonCommandService(
             @Autowired final PersonRepository personRepository,
             final AuditorAware<String> auditorAware) {
 
@@ -43,9 +45,10 @@ public class SimplePersonCommandService implements PersonCommandService {
 
     @Override
     public PersonDTO createPerson(final PersonBareDTO personBareDTO) {
+        log.info("called createPerson begin");
 
         validatePersonDTO(personBareDTO)
-                .ifPresent(CommonUtilException::fieldValidationException);
+                .ifPresent(FieldValidationException::fieldValidationException);
 
         existingPersonByEmailId(personBareDTO.getEmailId())
                 .ifPresent(this::personAlreadyFoundException);
@@ -54,6 +57,7 @@ public class SimplePersonCommandService implements PersonCommandService {
         person.setPersonId(UUID.randomUUID());
         person.setAction(CREATED);
         final Person newPerson = personRepository.save(person);
+        log.info("called createPerson end");
         return PersonMapper.mapToPersonDTO(newPerson);
     }
 
@@ -61,25 +65,29 @@ public class SimplePersonCommandService implements PersonCommandService {
     @Override
     public PersonDTO updatePerson(final String personId,
                                   final PersonBareDTO personBareDTO) {
+        log.info("called updatePerson begin");
 
         validateUUID(personId, ERROR_THE_PERSON_ID_IS_INVALID_UUID_FORMAT)
-                .ifPresent(CommonUtilException::fieldValidationException);
+                .ifPresent(FieldValidationException::fieldValidationException);
         final UUID personIdUUID = UUID.fromString(personId);
 
         validatePersonDTO(personBareDTO)
-                .ifPresent(CommonUtilException::fieldValidationException);
+                .ifPresent(FieldValidationException::fieldValidationException);
 
         final Person existingPerson = existingPersonById(personIdUUID);
         final Person updatedPerson = mapToPerson(personBareDTO, existingPerson);
         updatedPerson.setAction(UPDATED);
+
+        log.info("called updatePerson end");
         return PersonMapper.mapToPersonDTO(updatedPerson);
     }
 
     @Override
     public void deletePerson(final String personId) {
+        log.info("called deletePerson begin");
 
         validateUUID(personId, ERROR_THE_PERSON_ID_IS_INVALID_UUID_FORMAT)
-                .ifPresent(CommonUtilException::fieldValidationException);
+                .ifPresent(FieldValidationException::fieldValidationException);
         final UUID personIdUUID = UUID.fromString(personId);
 
         existingPersonById(personIdUUID);
@@ -91,6 +99,7 @@ public class SimplePersonCommandService implements PersonCommandService {
                 new Date(),
                 name
         );
+        log.info("called deletePerson end");
     }
 
     private Person existingPersonById(final UUID personId) {

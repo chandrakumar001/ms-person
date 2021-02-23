@@ -15,7 +15,7 @@ spring:
     console.enabled: true
     console.path: /h2
 
-logging:
-  level:
-    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
-    org.hibernate.stat: debug
+#logging:
+#  level:
+#    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+#    org.hibernate.stat: debug

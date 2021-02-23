@@ -1,6 +1,6 @@
-package com.chandrakumar.ms.api.exception;
+package com.chandrakumar.ms.api.error;
 
-import com.chandrakumar.ms.api.exception.model.ApiError;
+import com.chandrakumar.ms.api.error.model.ApiError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;

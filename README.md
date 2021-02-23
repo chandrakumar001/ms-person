@@ -8,7 +8,6 @@
 * [Cloudfoundry](#Cloudfoundry)
 * [Additional Information-Optional](#Additional-Information-Optional)
 
-## Problem 1
 ## General info
 This project for Person microservice and used lasted version spring boot, swagger(OpenAPI),Code Generator swagger.
 
@@ -19,6 +18,7 @@ This project for Person microservice and used lasted version spring boot, swagge
  * In-memory database: H2 database
  * Groovy-Spock(Junit test)
  * Karate framework(Integration-test)
+ * Maven 3.6.3
  * CI/CD-Jekins Pipeline
 
 #### Project Structure
@@ -42,7 +42,7 @@ This project for Person microservice and used lasted version spring boot, swagge
         mvn clean install
         mvn test
     
-### Packaging
+#### Packaging
         
   You can package by invoking the following command. 
         
@@ -211,6 +211,51 @@ Vertically scaling an application changes the disk space limit or memory limit t
 Show all apps:
         
         ibmcloud cf apps
+##### Filter logic Order
+
+logging: Clean up activity for before request and after request by using mdc approach 
+
+Tracking: Will be hold all request meta data such as jwt,x-request and x-businessTxId and externalId
+ 
+ 
+Components | ORDER
+-----------| -------------
+logging    | 0
+Tracking   | 1
+
+##### Enable  OWASP’s for this application
+ 
+In the pom.xml file, just the remove the comment block
+
+
+                    <plugin>
+                           <groupId>org.owasp</groupId>
+                           <artifactId>dependency-check-maven</artifactId>
+                           <version>6.1.1</version>
+                           <executions>
+                               <execution>
+                                   <goals>
+                                       <goal>check</goal>
+                                   </goals>
+                               </execution>
+                           </executions>
+                       </plugin>
+                       
+##### Enable Sonarqube for this application
+
+                        <plugin>
+                           <groupId>org.sonarsource.scanner.maven</groupId>
+                           <artifactId>sonar-maven-plugin</artifactId>
+                           <version>3.3.0.603</version>
+                           <executions>
+                               <execution>
+                                   <phase>verify</phase>
+                                   <goals>
+                                       <goal>sonar</goal>
+                                   </goals>
+                               </execution>
+                           </executions>
+                       </plugin>             
                 
 Refer URL: 
     

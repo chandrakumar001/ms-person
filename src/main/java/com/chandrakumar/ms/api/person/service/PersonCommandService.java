@@ -19,8 +19,8 @@ public interface PersonCommandService {
 
     /**
      * Update a person by the id.
-     * If the id is not uuid format, a {@link com.chandrakumar.ms.api.exception.FieldValidationException} will be thrown.
-     * If the id does not exist, a {@link com.chandrakumar.ms.api.exception.ResourceNotFoundException} will be thrown.
+     * If the id is not uuid format, a {@link com.chandrakumar.ms.api.error.FieldValidationException} will be thrown.
+     * If the id does not exist, a {@link com.chandrakumar.ms.api.error.ResourceNotFoundException} will be thrown.
      *
      * @param personId      the unique id of the person
      * @param personBareDTO the object of the person
@@ -31,8 +31,8 @@ public interface PersonCommandService {
 
     /**
      * Delete a person by the id.
-     * If the id is not uuid format, a {@link com.chandrakumar.ms.api.exception.FieldValidationException} will be thrown.
-     * If the id does not exist, a {@link com.chandrakumar.ms.api.exception.ResourceNotFoundException} will be thrown.
+     * If the id is not uuid format, a {@link com.chandrakumar.ms.api.error.FieldValidationException} will be thrown.
+     * If the id does not exist, a {@link com.chandrakumar.ms.api.error.ResourceNotFoundException} will be thrown.
      *
      * @param personId the unique id of the person
      */

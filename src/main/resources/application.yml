@@ -1,9 +1,6 @@
 application-description: project.description
 application-version: project.version
 
-server:
-  port: 8080
-
 spring:
   application:
     name: ms-person

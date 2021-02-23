@@ -12,7 +12,7 @@ import static com.chandrakumar.ms.api.person.service.PersonMockData.person
 import static com.chandrakumar.ms.api.person.util.PersonErrorCodeConstant.*
 
 @Unroll
-class PersonQueryServiceSpec extends Specification {
+class DefaultPersonQueryServiceSpec extends Specification {
 
     public static final int PERSON_TOTAL_COUNT = 1
     public static final int FIRST_INDEX = 0
@@ -25,11 +25,11 @@ class PersonQueryServiceSpec extends Specification {
      * annotation
      */
     def setup() {
-        queryService = new SimplePersonQueryService(personRepository)
+        queryService = new DefaultPersonQueryService(personRepository)
     }
 
     def "Success::getAllPerson IDs are logged whenever they are saved in the DB"() {
-        given: "a person dao that assigns an ID to person"
+        given: "all person mock "
         def emailId = "osaimar19@gmail.com"
         def firstName = "chandra"
         def lastName = "kumar"
@@ -51,7 +51,7 @@ class PersonQueryServiceSpec extends Specification {
     }
 
     def "Failed::getAllPerson IDs are logged whenever they are saved in the DB"() {
-        given: "a person dao that assigns an ID to person"
+        given: "all person mock"
 
         def actualErrorMessage = null
         personRepository.findAll() >> mockDBPersonData
@@ -71,7 +71,7 @@ class PersonQueryServiceSpec extends Specification {
     }
 
     def "Success::getPersonById IDs are logged whenever they are saved in the DB"() {
-        given: "a person dao that assigns an ID to person"
+        given: "a person that assigns an ID to person"
         def personId = "d6f02a17-c676-4b1b-ae39-e3b12f47c407"
         def personIdUUID = UUID.fromString(personId)
         def emailId = "osaimar19@gmail.com"
@@ -95,7 +95,7 @@ class PersonQueryServiceSpec extends Specification {
     }
 
     def "Failed::getPersonById IDs are logged whenever they are saved in the DB"() {
-        given: "a person dao that assigns an ID to person"
+        given: "a person that assigns an ID to person"
 
         def actualErrorMessage = null
         personRepository.findByPersonId(_ as UUID) >> mockDBPersonData

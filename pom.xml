@@ -279,8 +279,8 @@
                                    </goals>
                                </execution>
                            </executions>
-                       </plugin>
-                       <plugin>
+                       </plugin>-->
+<!--                       <plugin>
                            <groupId>org.owasp</groupId>
                            <artifactId>dependency-check-maven</artifactId>
                            <version>6.1.1</version>
