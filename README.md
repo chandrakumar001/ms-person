@@ -184,6 +184,9 @@ GET  https://ms-person.mybluemix.net/v1/people
    
 <b>This application will be deploy kubernetes cluster via CI/CD pipleline</b>  
 
+refer: output folder
+     
+     kubernate-pods.png
 ## Additional-Information-Optional
 #### Jenkins CD/CD pipeline step
 
@@ -191,7 +194,11 @@ GET  https://ms-person.mybluemix.net/v1/people
  - [x] A completed task Access the  below endpoint
  
      http://localhost:9090/
-
+     
+refer: output folder
+     
+     cicd-pipeline.png
+     
 Install Jenkins Plugin:
 
        `Cucumber reports
