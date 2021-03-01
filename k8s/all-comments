@@ -1,0 +1,24 @@
+################################################
+#       configmap                              #
+################################################
+kubectl create configmap ms-person-configmap  --from-env-file=k8s/06-env-config-dev.properties
+kubectl create configmap ms-project-configmap  --from-env-file=k8s/06-env-config-dev.properties
+kubectl get configmap
+kubectl describe configmaps/ms-person-configmap
+################################################
+#       secret                                #
+################################################
+kubectl create -f k8s/07-ms-person-secret.yaml
+kubectl create -f k8s/ms-project-secret.yaml
+kubectl get secret ms-person-secret
+kubectl describe secret ms-person-secret
+kubectl delete secret ms-person-secret
+################################################
+#       cmd                                #
+################################################
+kubectl logs ms-person-5f86845cb6-j8dnb
+kubectl logs --tail=100 ms-person-5f86845cb6-j8dnb
+kubectl get po -o wide
+kubectl rollout restart deployment/ms-person
+kubectl port-forward ms-person-5f86845cb6-j8dnb 8081:8080
+kubectl scale --replicas=0 deployment/php-apache

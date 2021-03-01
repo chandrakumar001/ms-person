@@ -1,0 +1,11 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: ms-person
+spec:
+  scaleTargetRef:
+    kind: ReplicaSet
+    name: ms-person
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 10

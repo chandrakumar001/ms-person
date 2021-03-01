@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-person
+  labels:
+    purpose: ms-person
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms-person
+  template:
+    metadata:
+      name: ms-person
+      labels:
+        app: ms-person
+    spec:
+      containers:
+      - name: ms-person
+        image: localhost:50000/ms-project/ms-person:latest
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 80
+#        readinessProbe:
+#          tcpSocket:
+#            port: 8080
+#          initialDelaySeconds: 5
+#          periodSeconds: 10
+#        livenessProbe:
+#          tcpSocket:
+#            port: 8080
+#          initialDelaySeconds: 15
+#          periodSeconds: 20

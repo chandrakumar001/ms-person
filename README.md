@@ -6,6 +6,7 @@
 * [Setup](#setup)
 * [Application URL Swagger](#Application-URL-Swagger)
 * [Cloudfoundry](#Cloudfoundry)
+* [Kubernetes](#Kubernetes)
 * [Additional Information-Optional](#Additional-Information-Optional)
 
 ## General info
@@ -175,6 +176,14 @@ GET  https://ms-person.mybluemix.net/v1/people
     ibmcloud target --cf
     ibmcloud cf push  -f cloudfoundry/manifest.yml  --vars-file cloudfoundry/dev-vars.yml
 
+## Kubernetes
+    
+  At first time, application setup execture: 'kubectl-execute.bat'
+  
+  This bat file having all configuration and apply the kubernetes cluster, this will step the such like <b>deployment,service,ingress,HPA,VPA and network policy</b>
+   
+<b>This application will be deploy kubernetes cluster via CI/CD pipleline</b>  
+
 ## Additional-Information-Optional
 #### Jenkins CD/CD pipeline step
 
@@ -287,5 +296,5 @@ Refer URL:
     
     https://springbootdev.com/2018/03/13/spring-data-jpa-auditing-with-createdby-createddate-lastmodifiedby-and-lastmodifieddate/
     https://piotrminkowski.com/2020/02/20/microservices-api-documentation-with-springdoc-openapi/
-
+    https://docs.run.pivotal.io/appsman-services/autoscaler/using-autoscaler-cli.html
     

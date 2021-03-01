@@ -1,9 +1,13 @@
+def newVersion
 pipeline {
   agent any
-    // auto triggers
+     // auto triggers
+    //${newPomVersion} ::: linux Placeholder
+    // %newPomVersion% :::windows Placeholder
     triggers {
         pollSCM('H/5 * * * *')
     }
+
     stages {
         // Build
         stage('Build') {
@@ -27,6 +31,15 @@ pipeline {
                 }
             }
         }
+        stage('Info') {
+          steps {
+            script{
+                  def pom = readMavenPom file: 'pom.xml'
+                  newVersion=pom.version
+                  printf("Test Version: %s", pom.version)
+            }
+          }
+        }
         // Build
         stage('Test') {
             steps {
@@ -49,10 +62,26 @@ pipeline {
                 }
             }
         }
+        stage('Build Docker Image') {
+
+            steps {
+                bat 'docker build . -t localhost:50000/ms-project/ms-person:'+newVersion
+                bat 'docker build . -t localhost:50000/ms-project/ms-person:'+newVersion
+                bat 'echo the image to docker'
+                bat 'docker push localhost:50000/ms-project/ms-person:'+newVersion
+
+                bat 'echo the latest image to docker'
+                bat 'docker tag localhost:50000/ms-project/ms-person:'+newVersion+' localhost:50000/ms-project/ms-person:latest'
+                bat 'docker push localhost:50000/ms-project/ms-person:latest'
+
+                bat 'echo Delete the image from jenkins'
+                bat 'docker rmi -f localhost:50000/ms-project/ms-person:'+newVersion+' localhost:50000/ms-project/ms-person:latest'
+            }
+        }
         // Deploy
         stage('Deploy') {
             steps {
-                echo 'Deploying'
+                bat 'kubectl set image deployment/ms-person ms-person=localhost:50000/ms-project/ms-person:'+newVersion
             }
         }
         //end
