@@ -185,8 +185,19 @@ GET  https://ms-person.mybluemix.net/v1/people
 <b>This application will be deploy kubernetes cluster via CI/CD pipleline</b>  
 
 refer: output folder
+
+         kubernate-pods.png
+
+
+<b>Unit-Test case report:</b>
+
+    refer: output/unitest-case-report.PNG
+    
+<b>Integration-Test case report: </b>
+
+         refer: output/cucumber-report-it-test.PNG
+
      
-     kubernate-pods.png
 ## Additional-Information-Optional
 #### Jenkins CD/CD pipeline step
 
