@@ -43,4 +43,4 @@ Feature: Test Person API
     Given path 'v1/people'
     When method GET
     Then status 200
-    And assert response.count == 4
+    And assert response.count == 10
