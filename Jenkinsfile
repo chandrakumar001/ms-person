@@ -52,13 +52,13 @@ pipeline {
             }
         }
         // Build
-        stage('cucumber') {
-            steps {
-                cucumber buildStatus: "UNSTABLE",
-                fileIncludePattern: "**/feature.*.*.json",
-                jsonReportDirectory: "target"
-            }
-        }
+       // stage('cucumber') {
+       //     steps {
+       //         cucumber buildStatus: "UNSTABLE",
+       //         fileIncludePattern: "**/feature.*.*.json",
+        //        jsonReportDirectory: "target"
+        //    }
+        // }
         // Package
         stage('Package') {
             steps {
