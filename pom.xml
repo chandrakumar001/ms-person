@@ -12,7 +12,7 @@
 
     <groupId>com.chandrakumar</groupId>
     <artifactId>ms-person</artifactId>
-    <version>0.0.1</version>
+    <version>2021.3.1</version>
     <name>ms-person</name>
     <description>This project for Person microservice</description>
     <properties>
@@ -182,20 +182,19 @@
                             </includes>
                         </configuration>
                     </execution>
-                    <!--<execution>
+                    <execution>
                         <id>integration-tests</id>
                         <phase>integration-test</phase>
                         <goals>
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                            <skipTests>false</skipTests>
                             <includes>
                                 <include>**/*IT.*</include>
                                 <include>**/*Tests.*</include>
                             </includes>
                         </configuration>
-                    </execution>-->
+                    </execution>
                 </executions>
             </plugin>
 

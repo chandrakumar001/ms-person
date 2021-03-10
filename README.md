@@ -41,7 +41,7 @@ This project for Person microservice and used lasted version spring boot, swagge
 
         cd ms-person
         mvn clean install
-        mvn test
+        mvn verify
     
 #### Packaging
         

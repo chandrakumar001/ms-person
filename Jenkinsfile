@@ -43,11 +43,16 @@ pipeline {
         // Build
         stage('Test') {
             steps {
-                bat 'mvn test'
+                bat 'mvn verify'
             }
             post{
               always{
+
                 junit "**/target/surefire-reports/TEST-*.xml"
+
+                cucumber buildStatus: "UNSTABLE"
+                fileIncludePattern: "**/feature.*.*.json"
+                jsonReportDirectory: 'target'
               }
             }
         }
