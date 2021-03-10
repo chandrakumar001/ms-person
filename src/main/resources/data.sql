@@ -606,7 +606,7 @@ values ('d6f02a17-c676-4b1b-ae39-e3b12f47c400', 'john.k@gmail.com','John', 'Keyn
 ,('c670b384-d291-4357-92c4-a94756e08c27', 'osaimar13@gmail.com','chandra999578', 'kumar', '21','red','chandra','2021-02-22 11:06:05.572','chandra','2021-01-22 11:06:25.572','CREATED')
 ,('f760fb91-3205-40e5-93a5-85bd106de250', 'osaimar13@gmail.com','chandra999579', 'kumar', '21','red','chandra','2021-02-22 11:06:05.572','chandra','2021-01-22 11:06:25.572','CREATED')
 ,('7c3a968e-dc9e-4039-a26b-ba40df96af81', 'osaimar13@gmail.com','chandra999580', 'kumar', '21','red','chandra','2021-02-22 11:06:05.572','chandra','2021-01-22 11:06:25.572','CREATED')
-,('a2585c3a-8cad-47dd-8a7b-5a49dde79595', 'osaimar13@gmail.com','chandra999581', 'kumar', '21','red','chandra','2021-02-22 11:06:05.572','chandra','2021-01-22 11:06:25.572','CREATED')
+,('a2585c3a-8cad-47dd-8a7b-5a49dde79595', 'osaimar12@gmail.com','chandra999581', 'kumar', '21','red','chandra','2021-02-22 11:06:05.572','chandra','2021-01-22 11:06:25.572','CREATED')
 ,('016a270b-d212-4050-8a18-34f1c7464edc', 'osaimar13@gmail.com','chandra999582', 'kumar', '21','red','chandra','2021-02-22 11:06:05.572','chandra','2021-01-22 11:06:25.572','CREATED')
 ,('7da66b14-8acc-4821-a493-ea5abebb659a', 'osaimar13@gmail.com','chandra999583', 'kumar', '21','red','chandra','2021-02-22 11:06:05.572','chandra','2021-01-22 11:06:25.572','CREATED')
 ,('944439a5-784a-4252-a96b-1156a3fb3543', 'osaimar13@gmail.com','chandra999584', 'kumar', '21','red','chandra','2021-02-22 11:06:05.572','chandra','2021-01-22 11:06:25.572','CREATED')
