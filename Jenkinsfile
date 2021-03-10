@@ -47,15 +47,19 @@ pipeline {
             }
             post{
               always{
-
-                junit "**/target/surefire-reports/TEST-*.xml",
-                cucumber buildStatus: "UNSTABLE",
-                fileIncludePattern: "**/feature.*.*.json",
-                jsonReportDirectory: "target"
+                junit "**/target/surefire-reports/TEST-*.xml"
               }
             }
         }
         // Build
+        stage('cucumber') {
+            steps {
+                cucumber buildStatus: "UNSTABLE",
+                fileIncludePattern: "**/feature.*.*.json",
+                jsonReportDirectory: "target"
+            }
+        }
+        // Package
         stage('Package') {
             steps {
                 bat 'mvn package -Dmaven.test.skip=true'
