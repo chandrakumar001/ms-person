@@ -48,11 +48,10 @@ pipeline {
             post{
               always{
 
-                junit "**/target/surefire-reports/TEST-*.xml"
-
-                cucumber buildStatus: "UNSTABLE"
-                fileIncludePattern: "**/feature.*.*.json"
-                jsonReportDirectory: 'target'
+                junit "**/target/surefire-reports/TEST-*.xml",
+                cucumber buildStatus: "UNSTABLE",
+                fileIncludePattern: "**/feature.*.*.json",
+                jsonReportDirectory: "target"
               }
             }
         }
