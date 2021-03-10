@@ -1,5 +1,6 @@
 package com.chandrakumar.ms.api.person.validation
 
+
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -11,6 +12,21 @@ import static com.chandrakumar.ms.api.person.validation.PersonValidator.validate
 
 @Unroll
 class PersonValidatorSpec extends Specification {
+
+    def "Failed::PersonValidator,Object creation"() {
+
+        given: "a PersonValidator declaration"
+        String errorMessage = null
+        when: ""
+        try {
+            new PersonValidator();
+        } catch (Exception e) {
+            errorMessage = e.getMessage()
+        }
+
+        then: "Verify the error message"
+        errorMessage == 'PersonValidator class'
+    }
 
     def "Failed::validatePersonDTO, personDTO Object"() {
         given: "a actualErrorMessage declaration"

@@ -253,7 +253,7 @@ Show all apps:
         ibmcloud cf ms-person
         ibmcloud cf logs ms-person
         
-##### Filter logic Order
+##### Request tracking and logging by using below component 
 
 logging: Clean up activity for before request and after request by using mdc approach 
 
@@ -264,6 +264,9 @@ Components | ORDER
 -----------| -------------
 logging    | 0
 Tracking   | 1
+
+Example:
+
 
 ##### Enable  OWASP’s for this application
  

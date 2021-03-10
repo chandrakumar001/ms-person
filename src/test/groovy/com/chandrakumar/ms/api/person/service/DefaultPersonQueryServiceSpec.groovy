@@ -5,6 +5,9 @@ import com.chandrakumar.ms.api.person.entity.Person
 import com.chandrakumar.ms.api.person.repository.PersonRepository
 import com.chandrakumar.ms.api.person.swagger.model.PersonDTO
 import com.chandrakumar.ms.api.person.swagger.model.PersonListResponseDTO
+import org.springframework.data.domain.PageImpl
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -16,6 +19,9 @@ class DefaultPersonQueryServiceSpec extends Specification {
 
     public static final int PERSON_TOTAL_COUNT = 1
     public static final int FIRST_INDEX = 0
+    public static final int DEFAULT_PAGE_NUMBER = 1;
+    public static final int DEFAULT_SIZE_NUMBER = 10;
+    public static final int TOTAL_RECORD_NOT_FOUND = 0
 
     private PersonQueryService queryService
     def personRepository = Mock(PersonRepository)
@@ -38,10 +44,14 @@ class DefaultPersonQueryServiceSpec extends Specification {
         final Person person = person(emailId, firstName, lastName, age)
         person.action = Action.UPDATED
 
-        personRepository.findAll() >> List.of(person)
-
+        personRepository.findAll(_ as Pageable) >> new PageImpl<>(
+                List.of(person)
+        )
         when: "that person is saved in the DB"
-        PersonListResponseDTO personDTOList = queryService.getAllPerson()
+        PersonListResponseDTO personDTOList = queryService.getAllPerson(
+                DEFAULT_PAGE_NUMBER,
+                DEFAULT_SIZE_NUMBER
+        )
 
         then: "the ID is correctly logged"
         personDTOList.count == PERSON_TOTAL_COUNT
@@ -54,11 +64,20 @@ class DefaultPersonQueryServiceSpec extends Specification {
         given: "all person mock"
 
         def actualErrorMessage = null
-        personRepository.findAll() >> mockDBPersonData
+
+        final PageRequest personPage = PageRequest.of(
+                DEFAULT_PAGE_NUMBER,
+                DEFAULT_SIZE_NUMBER
+        );
+        personRepository.findAll(_ as Pageable) >> new PageImpl<>(
+                Collections.emptyList(),
+                personPage,
+                TOTAL_RECORD_NOT_FOUND
+        )
 
         when: "that person is saved in the DB"
         try {
-            queryService.getAllPerson()
+            queryService.getAllPerson(DEFAULT_PAGE_NUMBER, DEFAULT_SIZE_NUMBER)
         } catch (Exception e) {
             actualErrorMessage = e.getMessage()
         }

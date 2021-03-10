@@ -2,6 +2,8 @@ package com.chandrakumar.ms.api.person.repository;
 
 import com.chandrakumar.ms.api.person.entity.Person;
 import lombok.NonNull;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -9,7 +11,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -18,14 +19,19 @@ import static com.chandrakumar.ms.api.person.util.PersonConstant.*;
 @Repository
 public interface PersonRepository extends JpaRepository<Person, UUID> {
 
+    @Override
     @Query("select p from Person p where p.action <> 'DELETED'")
-    List<Person> findAll();
+    Page<Person> findAll(Pageable personPageable);
 
     @Query("select p from Person p where p.emailId=:emailId and p.action <> 'DELETED'")
-    Optional<Person> findByEmailId(@Param(EMAIL_ID) @NonNull final String emailId);
+    Optional<Person> findByEmailId(
+            @Param(EMAIL_ID) @NonNull final String emailId
+    );
 
     @Query("select p from Person p where p.personId=:personId and p.action <> 'DELETED'")
-    Optional<Person> findByPersonId(@Param(PERSON_ID) @NonNull final UUID personId);
+    Optional<Person> findByPersonId(
+            @Param(PERSON_ID) @NonNull final UUID personId
+    );
 
     @Query("update Person p set p.lastModifiedBy=:lastModifiedBy, p.lastModifiedDate=:lastModifiedDate, p.action='DELETED' where p.personId=:personId")
     @Modifying

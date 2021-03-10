@@ -16,7 +16,8 @@ public interface PersonQueryService {
      *
      * @return the PersonListResponseDTO details
      */
-    PersonListResponseDTO getAllPerson();
+    PersonListResponseDTO getAllPerson(final Integer page,
+                                       final Integer size);
 
     /**
      * Retrieves a person by the id.

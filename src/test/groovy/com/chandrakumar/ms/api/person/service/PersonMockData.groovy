@@ -76,4 +76,22 @@ class PersonMockData {
         personName.lastName = lastName
         personName
     }
+
+    static List<PersonDTO> personDTOs() {
+
+        final PersonDTO personDTO1 = personDTO(
+                "abc@in.com",
+                "abc",
+                "c",
+                String.valueOf(18)
+        )
+        final PersonDTO personDTO2 = personDTO(
+                "chandrakumar@in.com",
+                "chandra",
+                "kumar",
+                String.valueOf(28)
+        )
+
+        return List.of(personDTO1, personDTO2)
+    }
 }

@@ -8,14 +8,14 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 import static com.chandrakumar.ms.api.person.resource.PersonURLConstant.V1_PERSONS_PERSON_ID_URL;
 import static com.chandrakumar.ms.api.person.resource.PersonURLConstant.V1_PERSONS_URL;
@@ -23,9 +23,10 @@ import static com.chandrakumar.ms.api.person.resource.PersonURLConstant.V1_PERSO
 @RestController
 @Tag(name = "Person API")
 //@ConditionalOnProperty(name = "app.write.enabled", havingValue = "false")
+@AllArgsConstructor
 public class PersonQueryRestController {
 
-    @Autowired
+    @NonNull
     PersonQueryService personQueryService;
 
     @GetMapping(V1_PERSONS_URL)
@@ -38,9 +39,14 @@ public class PersonQueryRestController {
                     @ApiResponse(responseCode = "500", description = "Application failed to process the request", content = @Content)
             }
     )
-    public ResponseEntity<PersonListResponseDTO> getAllPerson() {
+    public ResponseEntity<PersonListResponseDTO> getAllPerson(
+            @RequestParam(required = false) final Integer page,
+            @RequestParam(required = false) final Integer size) {
 
-        final PersonListResponseDTO personList = personQueryService.getAllPerson();
+        final PersonListResponseDTO personList = personQueryService.getAllPerson(
+                page,
+                size
+        );
         return new ResponseEntity<>(personList, HttpStatus.OK);
     }
 
