@@ -4,7 +4,6 @@ import com.chandrakumar.ms.api.error.FieldValidationException;
 import com.chandrakumar.ms.api.error.ResourceAlreadyFoundException;
 import com.chandrakumar.ms.api.error.ResourceNotFoundException;
 import com.chandrakumar.ms.api.person.entity.Person;
-import com.chandrakumar.ms.api.person.mapper.PersonMapper;
 import com.chandrakumar.ms.api.person.repository.PersonRepository;
 import com.chandrakumar.ms.api.person.swagger.model.PersonBareDTO;
 import com.chandrakumar.ms.api.person.swagger.model.PersonDTO;
@@ -21,6 +20,7 @@ import java.util.UUID;
 import static com.chandrakumar.ms.api.common.audit.Action.CREATED;
 import static com.chandrakumar.ms.api.common.audit.Action.UPDATED;
 import static com.chandrakumar.ms.api.person.mapper.PersonMapper.mapToPerson;
+import static com.chandrakumar.ms.api.person.mapper.PersonMapper.mapToPersonDTO;
 import static com.chandrakumar.ms.api.person.util.PersonErrorCodeConstant.*;
 import static com.chandrakumar.ms.api.person.validation.PersonValidator.validatePersonDTO;
 import static com.chandrakumar.ms.api.util.CommonUtil.validateUUID;
@@ -58,7 +58,7 @@ public class DefaultPersonCommandService implements PersonCommandService {
         person.setAction(CREATED);
         final Person newPerson = personRepository.save(person);
         log.info("called createPerson end");
-        return PersonMapper.mapToPersonDTO(newPerson);
+        return mapToPersonDTO(newPerson);
     }
 
 
@@ -75,11 +75,14 @@ public class DefaultPersonCommandService implements PersonCommandService {
                 .ifPresent(FieldValidationException::fieldValidationException);
 
         final Person existingPerson = existingPersonById(personIdUUID);
-        final Person updatedPerson = mapToPerson(personBareDTO, existingPerson);
-        updatedPerson.setAction(UPDATED);
+        mapToPerson(personBareDTO, existingPerson);
+        existingPerson.setAction(UPDATED);
 
+        final Person updatedPersonDB = personRepository.save(
+                existingPerson
+        );
         log.info("called updatePerson end");
-        return PersonMapper.mapToPersonDTO(updatedPerson);
+        return mapToPersonDTO(updatedPersonDB);
     }
 
     @Override

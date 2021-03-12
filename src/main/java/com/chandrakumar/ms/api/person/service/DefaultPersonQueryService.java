@@ -21,6 +21,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static com.chandrakumar.ms.api.person.mapper.PersonMapper.getPersonListResponseDTO;
+import static com.chandrakumar.ms.api.person.mapper.PersonMapper.mapToPersonDTO;
 import static com.chandrakumar.ms.api.person.util.PageRequestBuild.getPageRequest;
 import static com.chandrakumar.ms.api.person.util.PersonErrorCodeConstant.*;
 import static com.chandrakumar.ms.api.person.validation.PageRequestValidator.validateRequest;
@@ -83,16 +84,17 @@ public class DefaultPersonQueryService implements PersonQueryService {
         final Person existingPerson = existingPerson(personIdUUID);
         stopWatch.stop();
         log.info("Execution time of " + stopWatch.getTotalTimeMillis() + "ms");
-        log.info("called getPersonById begin");
-        return PersonMapper.mapToPersonDTO(existingPerson);
+
+        log.info("called getPersonById end");
+        return mapToPersonDTO(existingPerson);
     }
 
     private Person existingPerson(final UUID personId) {
         return personRepository.findByPersonId(personId)
-                .orElseThrow(this::personNotFoundException);
+                .orElseThrow(DefaultPersonQueryService::personNotFoundException);
     }
 
-    private RuntimeException personNotFoundException() {
+    private static RuntimeException personNotFoundException() {
         return new ResourceNotFoundException(ERROR_PERSON_ID_IS_NOT_FOUND);
     }
 }

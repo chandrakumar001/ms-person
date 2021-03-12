@@ -213,7 +213,12 @@ refer: output folder
 Install Jenkins Plugin:
 
        `Cucumber reports
-        Github integration plugin'
+        Github integration plugin
+        Blue Ocean plugin
+        '
+Refer:
+ 
+    https://www.jenkins.io/projects/blueocean/about/#:~:text=%22%22%20Blue%20Ocean%20is%20a%20new,Delivery%20(CD)%20Pipelines%20%22%22
         
 ####   SonarQube:
     
