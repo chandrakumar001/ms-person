@@ -1,0 +1,26 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "nginx-service"
+  namespace: "default"
+spec:
+  ports:
+    - port: 80
+  type: NodePort
+  selector:
+    app: "nginx"
+--- 
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: "nginx-ingress"
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+  labels:
+    app: "nginx"
+spec:
+  backend:
+    serviceName: "nginx-service"
+    servicePort: 80

@@ -17,8 +17,8 @@ spec:
     spec:
       containers:
       - name: ms-person
-        image: localhost:50000/ms-project/ms-person:latest
-        imagePullPolicy: Always
+        image: ms-person:latest
+        imagePullPolicy: Never
         ports:
           - containerPort: 80
 #        readinessProbe:
