@@ -16,8 +16,8 @@ pipeline {
                 cleanWs()
                 // We need to explicitly checkout from SCM here
                 checkout scm
-                // sh mvn clean install
-                bat 'mvn clean compile'
+                sh mvn clean install
+               // bat 'mvn clean compile'
             }
             post {
                 // Clean after build
@@ -43,7 +43,8 @@ pipeline {
         // Build
         stage('Test') {
             steps {
-                bat 'mvn verify'
+               // bat 'mvn verify'
+               sh 'mvn verify'
             }
             post{
               always{
@@ -62,7 +63,8 @@ pipeline {
         // Package
         stage('Package') {
             steps {
-                bat 'mvn package -Dmaven.test.skip=true'
+               // bat 'mvn package -Dmaven.test.skip=true'
+                sh 'mvn package -Dmaven.test.skip=true'
             }
             post {
                 success {
@@ -73,23 +75,23 @@ pipeline {
         stage('Build Docker Image') {
 
             steps {
-                bat 'docker build . -t localhost:50000/ms-project/ms-person:'+newVersion
-                bat 'docker build . -t localhost:50000/ms-project/ms-person:'+newVersion
-                bat 'echo the image to docker'
-                bat 'docker push localhost:50000/ms-project/ms-person:'+newVersion
+                sh 'docker build . -t localhost:50000/ms-project/ms-person:'+newVersion
+                sh 'docker build . -t localhost:50000/ms-project/ms-person:'+newVersion
+                sh 'echo the image to docker'
+                sh 'docker push localhost:50000/ms-project/ms-person:'+newVersion
 
-                bat 'echo the latest image to docker'
-                bat 'docker tag localhost:50000/ms-project/ms-person:'+newVersion+' localhost:50000/ms-project/ms-person:latest'
-                bat 'docker push localhost:50000/ms-project/ms-person:latest'
+                sh 'echo the latest image to docker'
+                sh 'docker tag localhost:50000/ms-project/ms-person:'+newVersion+' localhost:50000/ms-project/ms-person:latest'
+                sh 'docker push localhost:50000/ms-project/ms-person:latest'
 
-                bat 'echo Delete the image from jenkins'
-                bat 'docker rmi -f localhost:50000/ms-project/ms-person:'+newVersion+' localhost:50000/ms-project/ms-person:latest'
+                sh 'echo Delete the image from jenkins'
+                sh 'docker rmi -f localhost:50000/ms-project/ms-person:'+newVersion+' localhost:50000/ms-project/ms-person:latest'
             }
         }
         // Deploy
         stage('Deploy') {
             steps {
-                bat 'kubectl set image deployment/ms-person ms-person=localhost:50000/ms-project/ms-person:'+newVersion
+                sh 'kubectl set image deployment/ms-person ms-person=localhost:50000/ms-project/ms-person:'+newVersion
             }
         }
         //end
