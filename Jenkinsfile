@@ -20,7 +20,7 @@ pipeline {
                 cleanWs()
                 // We need to explicitly checkout from SCM here
                 checkout scm
-                sh mvn clean install
+                sh 'mvn clean install'
                // bat 'mvn clean compile'
             }
             post {
