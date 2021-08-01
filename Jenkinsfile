@@ -4,10 +4,10 @@ pipeline {
      // auto triggers
     //${newPomVersion} ::: linux Placeholder
     // %newPomVersion% :::windows Placeholder
-//     tools {
-//       jdk 'Java-11'
-//       maven 'maven-3.8.1'
-//     }  
+    tools {
+     // jdk 'Java-11'
+      maven 'maven-3.8.1'
+    }  
     triggers {
         pollSCM('H/5 * * * *')
     }
