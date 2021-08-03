@@ -21,9 +21,9 @@
         <karate.report.version>3.8.0</karate.report.version>
         <openapitools.version>0.1.0</openapitools.version>
         <resilience4jVersion>1.6.1</resilience4jVersion>
-        <checkstyle.version>3.1.2</checkstyle.version>
         <swagger.resource.path>src/main/resources/swagger</swagger.resource.path>
     </properties>
+
     <dependencies>
 
         <dependency>
@@ -291,36 +291,31 @@
                     </execution>
                 </executions>
             </plugin>
-<!--                       <plugin>
-                           <groupId>org.sonarsource.scanner.maven</groupId>
-                           <artifactId>sonar-maven-plugin</artifactId>
-                           <version>3.3.0.603</version>
-                           <executions>
-                               <execution>
-                                   <phase>verify</phase>
-                                   <goals>
-                                       <goal>sonar</goal>
-                                   </goals>
-                               </execution>
-                           </executions>
-                       </plugin> -->
-                                  <plugin>
-                                       <groupId>org.owasp</groupId>
-                                       <artifactId>dependency-check-maven</artifactId>
-                                       <version>6.1.1</version>
+            <!--                       <plugin>
+                                       <groupId>org.sonarsource.scanner.maven</groupId>
+                                       <artifactId>sonar-maven-plugin</artifactId>
+                                       <version>3.3.0.603</version>
                                        <executions>
                                            <execution>
+                                               <phase>verify</phase>
                                                <goals>
-                                                   <goal>check</goal>
+                                                   <goal>sonar</goal>
                                                </goals>
                                            </execution>
                                        </executions>
-                             </plugin>
-        <plugin>
-           <groupId>org.apache.maven.plugins</groupId>
-           <artifactId>maven-checkstyle-plugin</artifactId>
-           <version>${checkstyle.version}</version>
-        </plugin>             
+                                   </plugin> -->
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>6.1.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 

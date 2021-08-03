@@ -5,7 +5,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CommonUtil {
+public final class CommonUtil {
 
     private CommonUtil() {
         throw new IllegalStateException("CommonUtil class");

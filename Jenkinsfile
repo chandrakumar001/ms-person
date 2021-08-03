@@ -1,13 +1,13 @@
 def newVersion
 pipeline {
-  agent any
-     // auto triggers
+    agent any
+    // auto triggers
     //${newPomVersion} ::: linux Placeholder
     // %newPomVersion% :::windows Placeholder
-//     tools {
-//      // jdk 'Java-11'
-//       maven 'maven-3.8.1'
-//     }  
+    //     tools {
+    //      // jdk 'Java-11'
+    //       maven 'maven-3.8.1'
+    //     }
     triggers {
         pollSCM('H/5 * * * *')
     }
@@ -21,7 +21,7 @@ pipeline {
                 // We need to explicitly checkout from SCM here
                 checkout scm
                 sh 'mvn clean compile'
-               // bat 'mvn clean compile'
+            // bat 'mvn clean compile'
             }
             post {
                 // Clean after build
@@ -36,44 +36,44 @@ pipeline {
             }
         }
         stage('Info') {
-          steps {
-            script{
-                  def pom = readMavenPom file: 'pom.xml'
-                  newVersion=pom.version
-                  printf("Test Version: %s", pom.version)
+            steps {
+                script {
+                    def pom = readMavenPom file: 'pom.xml'
+                    newVersion = pom.version
+                    printf('Test Version: %s', pom.version)
+                }
             }
-          }
         }
         // Build
         stage('Test') {
             steps {
-               // bat 'mvn verify'
-               sh 'mvn verify -Ddependency-check.skip=true'
+                // bat 'mvn verify'
+                sh 'mvn verify -Ddependency-check.skip=true'
             }
-            post{
-              always{
-                junit "**/target/surefire-reports/TEST-*.xml"
-              }
+            post {
+                always {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                }
             }
         }
         // cucumber
-       stage('cucumber') {
-         steps {
-                cucumber buildStatus: "UNSTABLE",
-                fileIncludePattern: "**/feature.*.*.json",
-                jsonReportDirectory: "target"
-          }
-       }
-       stage('Checkstyle') {
-              steps {
-                        sh "mvn checkstyle:check"
-                        recordIssues(tools: [checkStyle(reportEncoding: 'UTF-8')])
-               }
-         }
-              // Package
+        stage('cucumber') {
+            steps {
+                cucumber buildStatus: 'UNSTABLE',
+                        fileIncludePattern: '**/feature.*.*.json',
+                        jsonReportDirectory: 'target'
+            }
+        }
+        stage('Checkstyle') {
+            steps {
+                sh 'mvn checkstyle:check'
+                recordIssues(tools: [checkStyle(reportEncoding: 'UTF-8')])
+            }
+        }
+        // Package
         stage('Package') {
             steps {
-               // bat 'mvn package -Dmaven.test.skip=true'
+                // bat 'mvn package -Dmaven.test.skip=true'
                 sh 'mvn package -Dmaven.test.skip=true'
             }
             post {
@@ -82,12 +82,11 @@ pipeline {
                 }
             }
         }
-      stage ('OWASP Dependency-Check Vulnerabilities') {
+        stage('OWASP Dependency-Check Vulnerabilities') {
             steps {
-              
-              sh 'mvn dependency-check:check -Dformat=ALL'             
+                sh 'mvn dependency-check:check -Dformat=ALL'
 
-              dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+                dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
             }
         }
 //       stage('SonarQube analysis') {
@@ -117,12 +116,12 @@ pipeline {
 //                 sh 'docker rmi -f localhost:50000/ms-project/ms-person:'+newVersion+' localhost:50000/ms-project/ms-person:latest'
 //             }
 //         }
-        // Deploy
+// Deploy
 //         stage('Deploy') {
 //             steps {
 //                 sh 'kubectl set image deployment/ms-person ms-person=localhost:50000/ms-project/ms-person:'+newVersion
 //             }
 //         }
-        //end
+//end
     }
-  }
+}
