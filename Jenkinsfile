@@ -60,7 +60,7 @@ pipeline {
        stage('cucumber') {
          steps {
                 cucumber buildStatus: "UNSTABLE",
-               fileIncludePattern: "**/feature.*.*.json",
+                fileIncludePattern: "**/feature.*.*.json",
                 jsonReportDirectory: "target"
           }
        }
@@ -76,22 +76,30 @@ pipeline {
                 }
             }
         }
-        stage('Build Docker Image') {
-
+      stage ('OWASP Dependency-Check Vulnerabilities') {
             steps {
-                sh 'docker build . -t localhost:50000/ms-project/ms-person:'+newVersion
-                sh 'docker build . -t localhost:50000/ms-project/ms-person:'+newVersion
-                sh 'echo the image to docker'
-                sh 'docker push localhost:50000/ms-project/ms-person:'+newVersion
+              
+              sh 'mvn dependency-check:check'             
 
-                sh 'echo the latest image to docker'
-                sh 'docker tag localhost:50000/ms-project/ms-person:'+newVersion+' localhost:50000/ms-project/ms-person:latest'
-                sh 'docker push localhost:50000/ms-project/ms-person:latest'
-
-                sh 'echo Delete the image from jenkins'
-                sh 'docker rmi -f localhost:50000/ms-project/ms-person:'+newVersion+' localhost:50000/ms-project/ms-person:latest'
+              dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
             }
         }
+//         stage('Build Docker Image') {
+
+//             steps {
+//                 sh 'docker build . -t localhost:50000/ms-project/ms-person:'+newVersion
+//                 sh 'docker build . -t localhost:50000/ms-project/ms-person:'+newVersion
+//                 sh 'echo the image to docker'
+//                 sh 'docker push localhost:50000/ms-project/ms-person:'+newVersion
+
+//                 sh 'echo the latest image to docker'
+//                 sh 'docker tag localhost:50000/ms-project/ms-person:'+newVersion+' localhost:50000/ms-project/ms-person:latest'
+//                 sh 'docker push localhost:50000/ms-project/ms-person:latest'
+
+//                 sh 'echo Delete the image from jenkins'
+//                 sh 'docker rmi -f localhost:50000/ms-project/ms-person:'+newVersion+' localhost:50000/ms-project/ms-person:latest'
+//             }
+//         }
         // Deploy
 //         stage('Deploy') {
 //             steps {
