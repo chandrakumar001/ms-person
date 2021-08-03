@@ -21,6 +21,7 @@
         <karate.report.version>3.8.0</karate.report.version>
         <openapitools.version>0.1.0</openapitools.version>
         <resilience4jVersion>1.6.1</resilience4jVersion>
+        <checkstyle.version>3.1.2</checkstyle.version>
         <swagger.resource.path>src/main/resources/swagger</swagger.resource.path>
     </properties>
     <dependencies>
@@ -314,7 +315,12 @@
                                                </goals>
                                            </execution>
                                        </executions>
-                                   </plugin>
+                             </plugin>
+        <plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-checkstyle-plugin</artifactId>
+           <version>${checkstyle.version}</version>
+        </plugin>             
         </plugins>
     </build>
 
