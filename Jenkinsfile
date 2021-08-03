@@ -76,28 +76,28 @@ pipeline {
                 }
             }
         }
-        stage('Build Docker Image') {
+//         stage('Build Docker Image') {
 
-            steps {
-                sh 'docker build . -t localhost:50000/ms-project/ms-person:'+newVersion
-                sh 'docker build . -t localhost:50000/ms-project/ms-person:'+newVersion
-                sh 'echo the image to docker'
-                sh 'docker push localhost:50000/ms-project/ms-person:'+newVersion
+//             steps {
+//                 sh 'docker build . -t localhost:50000/ms-project/ms-person:'+newVersion
+//                 sh 'docker build . -t localhost:50000/ms-project/ms-person:'+newVersion
+//                 sh 'echo the image to docker'
+//                 sh 'docker push localhost:50000/ms-project/ms-person:'+newVersion
 
-                sh 'echo the latest image to docker'
-                sh 'docker tag localhost:50000/ms-project/ms-person:'+newVersion+' localhost:50000/ms-project/ms-person:latest'
-                sh 'docker push localhost:50000/ms-project/ms-person:latest'
+//                 sh 'echo the latest image to docker'
+//                 sh 'docker tag localhost:50000/ms-project/ms-person:'+newVersion+' localhost:50000/ms-project/ms-person:latest'
+//                 sh 'docker push localhost:50000/ms-project/ms-person:latest'
 
-                sh 'echo Delete the image from jenkins'
-                sh 'docker rmi -f localhost:50000/ms-project/ms-person:'+newVersion+' localhost:50000/ms-project/ms-person:latest'
-            }
-        }
+//                 sh 'echo Delete the image from jenkins'
+//                 sh 'docker rmi -f localhost:50000/ms-project/ms-person:'+newVersion+' localhost:50000/ms-project/ms-person:latest'
+//             }
+//         }
         // Deploy
-        stage('Deploy') {
-            steps {
-                sh 'kubectl set image deployment/ms-person ms-person=localhost:50000/ms-project/ms-person:'+newVersion
-            }
-        }
+//         stage('Deploy') {
+//             steps {
+//                 sh 'kubectl set image deployment/ms-person ms-person=localhost:50000/ms-project/ms-person:'+newVersion
+//             }
+//         }
         //end
     }
   }
