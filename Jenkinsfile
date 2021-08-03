@@ -64,7 +64,13 @@ pipeline {
                 jsonReportDirectory: "target"
           }
        }
-        // Package
+       stage('Checkstyle') {
+              steps {
+                        sh "mvn checkstyle:check"
+                        recordIssues(tools: [checkStyle(reportEncoding: 'UTF-8')])
+               }
+         }
+              // Package
         stage('Package') {
             steps {
                // bat 'mvn package -Dmaven.test.skip=true'
