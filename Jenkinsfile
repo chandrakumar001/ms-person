@@ -48,7 +48,7 @@ pipeline {
         stage('Test') {
             steps {
                // bat 'mvn verify'
-               sh 'mvn verify'
+               sh 'mvn verify -Ddependency-check.skip=true'
             }
             post{
               always{
