@@ -62,6 +62,16 @@ pipeline {
                 dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
             }
         }
+        stage('SonarQube analysis') {
+            steps {
+            //withSonarQubeEnv(credentialsId: 'test-sonarqube-secret-env', installationName: 'test-sonarqube-server-old') {
+            // withSonarQubeEnv( installationName: 'chandran-edu-sonarqube') {
+            withSonarQubeEnv('chandran-edu-sonarqube') {
+            // withMaven(maven : 'mvn-3.8.1') {
+                sh 'mvn sonar:sonar -Dsonar.dependencyCheck.jsonReportPath=target/dependency-check-report.json -Dsonar.dependencyCheck.xmlReportPath=target/dependency-check-report.xml -Dsonar.dependencyCheck.htmlReportPath=target/dependency-check-report.html'
+            }
+            }
+        }        
         // Package
         stage('Package') {
             steps {
