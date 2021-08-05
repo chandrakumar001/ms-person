@@ -14,6 +14,10 @@ pipeline {
                 // We need to explicitly checkout from SCM here
                 checkout scm
                 sh 'mvn clean compile'
+                script {
+                    newVersion = readMavenPom file: 'pom.xml'
+                    printf('Test Version: %s', newVersion)
+                }
             }
             post {
                 // Clean after build
@@ -24,14 +28,6 @@ pipeline {
                             notFailBuild: true,
                             patterns: [[pattern: '.gitignore', type: 'INCLUDE'],
                                        [pattern: '.propsfile', type: 'EXCLUDE']])
-                }
-            }
-        }
-        stage('Pom Info') {
-            steps {
-                script {
-                    newVersion = readMavenPom file: 'pom.xml'
-                    printf('Test Version: %s', newVersion)
                 }
             }
         }
