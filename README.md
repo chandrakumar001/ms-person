@@ -35,14 +35,32 @@ This project for Person microservice and used lasted version spring boot, swagge
    
         git clone https://github.com/chandrakumar001/ms-person
 
-#### Running Tests
+#### Running Tests and Skipping Unit Tests and Integration Tests
 
-  You can run tests by invoking the following command. 
+* To skip all tests (unit and integration tests) when install the package into the local repository via command line add the parameter -DskipTests=true (The flag is honored by Surefire, Failsafe and the Compiler Plugin).
 
+        
         cd ms-person
-        mvn clean install
-        mvn verify
+        mvn clean install -DskipTests=true 
+
+* To explicit skip unit tests just add the parameter  -Dskip.unit.tests=true.
+
+        
+        mvn test
+        mvn clean install -Dskip.unit.tests=true
     
+* To explicit skip integration tests via command line just add the parameter -Dskip.integration.test=true:
+
+        
+        mvn verify
+        mvn verify -Dskip.unit.tests=false -Dskip.integration.test=true
+        
+Note:
+    
+        mvn test   : will run only Unit test case
+        mvn verify : will run  Unit test + Intergation test case
+        mvn clean install : will run Unit test + Intergation test case
+                    
 #### Packaging
         
   You can package by invoking the following command. 

@@ -24,7 +24,7 @@ class PageRequestBuildSpec extends Specification {
         errorMessage == 'PageRequestBuild class'
     }
 
-    def "Failed::validateRequest,#testStep,#page,#size==#expectedErrorMessage"() {
+    def "Failed::validateRequest,#testStep,#page,#size==#expectedPageNumber,#expectedPageSize"() {
         given: "a pageRequest declaration"
         PageRequest pageRequest = null
         when: "call that validatePersonDTO() method"
@@ -52,7 +52,7 @@ class PageRequestBuildSpec extends Specification {
 
     }
 
-    def "Success::validateRequest,#testStep,#page,#size==#expectedErrorMessage"() {
+    def "Success::validateRequest,#testStep,#page,#size==#expectedPageNumber,#expectedPageSize"() {
         given: "a pageRequest declaration"
         PageRequest pageRequest = null
         when: "call that validatePersonDTO() method"

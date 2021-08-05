@@ -17,45 +17,65 @@
     <description>This project for Person microservice</description>
     <properties>
         <java.version>11</java.version>
+        <mapstruct.version>1.4.2.Final</mapstruct.version>
+        <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
+        <!--Open API UI-->
+        <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
+        <openapi-ui.version>1.5.9</openapi-ui.version>
+        <jackson-databind-nullable.version>0.1.0</jackson-databind-nullable.version>
+        <!--karate | Unit test case-->
         <karate.version>0.9.5</karate.version>
         <karate.report.version>3.8.0</karate.report.version>
-        <openapitools.version>0.1.0</openapitools.version>
+        <!--groovy and groovy version | Unit test case -->
+        <groovy.version>3.0.8</groovy.version>
+        <spring-spock.version>2.0-groovy-3.0</spring-spock.version>
         <resilience4jVersion>1.6.1</resilience4jVersion>
+        <!--plugin.version-->
+        <owasp.dependency-check-maven.version>6.2.2</owasp.dependency-check-maven.version>
+
+        <!--plugin.version-->
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
+        <failsafe-plugin.version>3.0.0-M5</failsafe-plugin.version>
+        <build-helper-maven.version>3.2.0</build-helper-maven.version>
+        <gmavenplus-plugin.version>1.12.1</gmavenplus-plugin.version>
+
+        <openapi-generator-maven-plugin.version>4.3.0</openapi-generator-maven-plugin.version>
+        <!--swagger path-->
         <swagger.resource.path>src/main/resources/swagger</swagger.resource.path>
+        <!--spring-cloud-->
+        <spring-cloud.version>2020.0.2</spring-cloud.version>
+        <!--tests execution feature-->
+        <skipTests>false</skipTests>
+        <skip.unit.tests>${skipTests}</skip.unit.tests>
+        <skip.integration.test>${skipTests}</skip.integration.test>
     </properties>
 
     <dependencies>
 
+        <!---resilience4j begin-->
         <dependency>
-            <groupId>io.github.resilience4j</groupId>
-            <artifactId>resilience4j-spring-boot2</artifactId>
-            <version>${resilience4jVersion}</version>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
         </dependency>
+        <!-- Micormeter core dependency and Prometheus registry  -->
         <dependency>
-            <groupId>io.github.resilience4j</groupId>
-            <artifactId>resilience4j-all</artifactId>
-            <version>${resilience4jVersion}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.resilience4j</groupId>
-            <artifactId>resilience4j-reactor</artifactId>
-            <version>${resilience4jVersion}</version>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-core</artifactId>
         </dependency>
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.spockframework</groupId>
-            <artifactId>spock-core</artifactId>
-            <version>1.3-groovy-2.5</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <!---resilience4j end -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -69,14 +89,19 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.199</version>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -92,12 +117,32 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.4.8</version>
+            <version>${openapi-ui.version}</version>
         </dependency>
         <dependency>
             <groupId>org.openapitools</groupId>
             <artifactId>jackson-databind-nullable</artifactId>
-            <version>${openapitools.version}</version>
+            <version>${jackson-databind-nullable.version}</version>
+        </dependency>
+
+        <!--Unit test dependency -->
+        <!--Unit test dependency groovy and spock -->
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy</artifactId>
+            <version>${groovy.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+            <version>${spring-spock.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-spring</artifactId>
+            <version>${spring-spock.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -153,71 +198,68 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <dependency>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok-mapstruct-binding</artifactId>
+                            <version>${lombok-mapstruct-binding.version}</version>
+                        </dependency>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <!-- To run spock unit test case execution plugin -->
+            <!-- https://maven.apache.org/surefire/maven-surefire-plugin/examples/spock.html-->
+            <plugin>
                 <groupId>org.codehaus.gmavenplus</groupId>
                 <artifactId>gmavenplus-plugin</artifactId>
-                <version>1.5</version>
+                <version>${gmavenplus-plugin.version}</version>
                 <executions>
                     <execution>
+                        <id>addTestSources</id>
                         <goals>
-                            <goal>testCompile</goal>
+                            <goal>compileTests</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
+            <!-- To unit test for Junit and Spock plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.18.1</version>
-                <executions>
-                    <execution>
-                        <id>unit-tests</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                        <configuration>
-                            <skipTests>false</skipTests>
-                            <includes>
-                                <include>**/*Test.java</include>
-                                <include>**/*Spec.java</include>
-                            </includes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>integration-tests</id>
-                        <phase>integration-test</phase>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                        <configuration>
-                            <includes>
-                                <include>**/*IT.*</include>
-                                <include>**/*Tests.*</include>
-                            </includes>
-                        </configuration>
-                    </execution>
-                </executions>
+                <version>${surefire-plugin.version}</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Spec.java</include>
+                        <include>**/*Test.java</include>
+                    </includes>
+                    <!-- Set this to true to skip running tests, but still compile them. -->
+                    <skipTests>${skip.unit.tests}</skipTests>
+                </configuration>
             </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>verify</id>
-                        <goals>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--add Integration- test folder -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>${build-helper-maven.version}</version>
                 <executions>
                     <execution>
-                        <id>add-integration-test-sources</id>
+                        <id>add-integration-test-source-as-test-sources</id>
                         <phase>generate-test-sources</phase>
                         <goals>
                             <goal>add-test-source</goal>
@@ -225,7 +267,6 @@
                         <configuration>
                             <sources>
                                 <source>src/integration-test/java</source>
-                                <source>src/integration-test/groovy</source>
                             </sources>
                         </configuration>
                     </execution>
@@ -253,10 +294,31 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- run the integration tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${failsafe-plugin.version}</version>
+                <configuration>
+                    <!-- Set this to true to skip integration tests. -->
+                    <skipTests>${skip.integration.test}</skipTests>
+                    <!--                    <includes>-->
+                    <!--                        <include>**/*IT.java</include>-->
+                    <!--                    </includes>-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>4.3.0</version>
+                <version>${openapi-generator-maven-plugin.version}</version>
                 <!-- /RELEASE_VERSION -->
                 <executions>
                     <execution>
@@ -291,32 +353,43 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--                       <plugin>
-                                       <groupId>org.sonarsource.scanner.maven</groupId>
-                                       <artifactId>sonar-maven-plugin</artifactId>
-                                       <version>3.3.0.603</version>
-                                       <executions>
-                                           <execution>
-                                               <phase>verify</phase>
-                                               <goals>
-                                                   <goal>sonar</goal>
-                                               </goals>
-                                           </execution>
-                                       </executions>
-                                   </plugin> -->
-            <plugin>
-                <groupId>org.owasp</groupId>
-                <artifactId>dependency-check-maven</artifactId>
-                <version>6.1.1</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>org.owasp</groupId>-->
+            <!--                <artifactId>dependency-check-maven</artifactId>-->
+            <!--                <version>${owasp.dependency-check-maven.version}</version>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <goals>-->
+            <!--                            <goal>check</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
+
+            <!--            <plugin>-->
+            <!--                <groupId>org.sonarsource.scanner.maven</groupId>-->
+            <!--                <artifactId>sonar-maven-plugin</artifactId>-->
+            <!--                <version>3.3.0.603</version>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <phase>verify</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>sonar</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
         </plugins>
     </build>
-
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

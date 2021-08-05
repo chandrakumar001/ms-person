@@ -14,7 +14,6 @@ pipeline {
                 // We need to explicitly checkout from SCM here
                 checkout scm
                 sh 'mvn clean compile'
-            // bat 'mvn clean compile'
             }
             post {
                 // Clean after build
@@ -27,8 +26,6 @@ pipeline {
                                        [pattern: '.propsfile', type: 'EXCLUDE']])
                 }
             }
-        }
-        stage('Info') {
             steps {
                 script {
                     newVersion = readMavenPom file: 'pom.xml'
@@ -36,11 +33,9 @@ pipeline {
                 }
             }
         }
-        // Build
-        stage('Test') {
+        stage('Unit Test') {
             steps {
-                // bat 'mvn verify'
-                sh 'mvn verify -Ddependency-check.skip=true'
+                sh 'mvn test -Ddependency-check.skip=true'
             }
             post {
                 always {
@@ -48,8 +43,10 @@ pipeline {
                 }
             }
         }
-        // cucumber
-        stage('cucumber') {
+        stage('Integration Test') {
+            steps {
+                sh 'mvn verify -Dskip.unit.tests=true -Ddependency-check.skip=true'
+            }
             steps {
                 cucumber buildStatus: 'UNSTABLE',
                         fileIncludePattern: '**/feature.*.*.json',
@@ -73,7 +70,6 @@ pipeline {
         // Package
         stage('Package') {
             steps {
-                // bat 'mvn package -Dmaven.test.skip=true'
                 sh 'mvn package -Dmaven.test.skip=true'
             }
             post {
