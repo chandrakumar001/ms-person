@@ -17,6 +17,10 @@
     <description>This project for Person microservice</description>
     <properties>
         <java.version>11</java.version>
+        <!--security vulnerability begin-->
+        <spring-security.version>5.5.1</spring-security.version>
+        <commons-io.version>2.10.0</commons-io.version>
+        <!--security vulnerability end-->
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
         <!--Open API UI-->
@@ -52,7 +56,13 @@
     </properties>
 
     <dependencies>
-
+        <!--security vulnerability begin-->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
+        <!--security vulnerability end-->
         <!---resilience4j begin-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -112,7 +122,13 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
+            <version>${springfox-swagger2.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springdoc</groupId>
@@ -173,6 +189,19 @@
             <artifactId>cucumber-reporting</artifactId>
             <version>${karate.report.version}</version>
             <scope>test</scope>
+        </dependency>
+        <!-- maven/commons-io/commons-io@2.5, cpe:2.3:a:apache:commons_io:2.5 -->
+        <!--        Feign and OpenFeign-->
+        <!--        https://www.baeldung.com/netflix-feign-vs-openfeign        -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.security</groupId>
+                    <artifactId>spring-security-crypto</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
