@@ -81,7 +81,7 @@ pipeline {
             steps {
                 sh 'docker build . -t 139.162.195.118:50000/ms-person:'+newVersion
                 sh 'echo the image to docker'
-                sh 'docker push 139.162.195.118:50000/ms-project/ms-person:'+newVersion
+                sh 'docker push 139.162.195.118:50000/ms-person:'+newVersion
 
                 sh 'echo the latest image to docker'
                 sh 'docker tag 139.162.195.118:50000/ms-person:'+newVersion+' 139.162.195.118:50000/ms-person:latest'
