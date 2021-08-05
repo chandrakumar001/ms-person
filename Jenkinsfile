@@ -15,6 +15,12 @@ pipeline {
                 checkout scm
                 sh 'mvn clean compile'
             }
+            steps {
+                script {
+                    newVersion = readMavenPom file: 'pom.xml'
+                    printf('Test Version: %s', newVersion)
+                }
+            }
             post {
                 // Clean after build
                 always {
@@ -26,6 +32,8 @@ pipeline {
                                        [pattern: '.propsfile', type: 'EXCLUDE']])
                 }
             }
+        }
+        stage('Pom Info') {
             steps {
                 script {
                     newVersion = readMavenPom file: 'pom.xml'
@@ -47,6 +55,8 @@ pipeline {
             steps {
                 sh 'mvn verify -Dskip.unit.tests=true -Ddependency-check.skip=true'
             }
+        }
+        stage('Cucumber Report') {
             steps {
                 cucumber buildStatus: 'UNSTABLE',
                         fileIncludePattern: '**/feature.*.*.json',
