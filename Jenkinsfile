@@ -79,20 +79,20 @@ pipeline {
         stage('Build Docker Image') {
 
             steps {
-                sh 'docker build . -t http://139.162.195.118:50000/ms-person:'+newVersion
+                sh 'docker build . -t 139.162.195.118:50000/ms-person:'+newVersion
                 sh 'echo the image to docker'
-                sh 'docker push http://139.162.195.118:50000/ms-project/ms-person:'+newVersion
+                sh 'docker push 139.162.195.118:50000/ms-project/ms-person:'+newVersion
 
                 sh 'echo the latest image to docker'
-                sh 'docker tag http://139.162.195.118:50000/ms-person:'+newVersion+' http://139.162.195.118:50000/ms-person:latest'
-                sh 'docker push http://139.162.195.118:50000/ms-person:latest'
+                sh 'docker tag 139.162.195.118:50000/ms-person:'+newVersion+' 139.162.195.118:50000/ms-person:latest'
+                sh 'docker push 139.162.195.118:50000/ms-person:latest'
 
                 sh 'echo Delete the image from jenkins'
-                sh 'docker rmi -f http://139.162.195.118:50000/ms-person:'+newVersion+' http://139.162.195.118:50000/ms-person:latest'
+                sh 'docker rmi -f 139.162.195.118:50000/ms-person:'+newVersion+' 139.162.195.118:50000/ms-person:latest'
             }
         }
     //end
     }
 }
 
-//http://139.162.195.118:5000/v2/_catalog
+//139.162.195.118:5000/v2/_catalog
