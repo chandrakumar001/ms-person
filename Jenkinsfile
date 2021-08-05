@@ -31,19 +31,15 @@ pipeline {
                 }
             }
         }
-        stage('Unit Test') {
+        stage('Unit and Integration Test') {
             steps {
                 sh 'mvn test -Ddependency-check.skip=true'
+                sh 'mvn verify -Dskip.unit.tests=true -Ddependency-check.skip=true'
             }
             post {
                 always {
                     junit '**/target/surefire-reports/TEST-*.xml'
                 }
-            }
-        }
-        stage('Integration Test') {
-            steps {
-                sh 'mvn verify -Dskip.unit.tests=true -Ddependency-check.skip=true'
             }
         }
         stage('Cucumber Report') {
