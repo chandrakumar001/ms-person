@@ -79,16 +79,16 @@ pipeline {
         stage('Build Docker Image') {
 
             steps {
-                sh 'docker build . -t 139.162.195.118:50000/ms-person:'+newVersion
+                sh 'docker build . -t 139.162.195.118:5000/ms-person:'+newVersion
                 sh 'echo the image to docker'
-                sh 'docker push 139.162.195.118:50000/ms-person:'+newVersion
+                sh 'docker push 139.162.195.118:5000/ms-person:'+newVersion
 
                 sh 'echo the latest image to docker'
-                sh 'docker tag 139.162.195.118:50000/ms-person:'+newVersion+' 139.162.195.118:50000/ms-person:latest'
-                sh 'docker push 139.162.195.118:50000/ms-person:latest'
+                sh 'docker tag 139.162.195.118:5000/ms-person:'+newVersion+' 139.162.195.118:5000/ms-person:latest'
+                sh 'docker push 139.162.195.118:5000/ms-person:latest'
 
                 sh 'echo Delete the image from jenkins'
-                sh 'docker rmi -f 139.162.195.118:50000/ms-person:'+newVersion+' 139.162.195.118:50000/ms-person:latest'
+                sh 'docker rmi -f 139.162.195.118:5000/ms-person:'+newVersion+' 139.162.195.118:5000/ms-person:latest'
             }
         }
     //end
