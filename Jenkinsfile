@@ -15,8 +15,9 @@ pipeline {
                 checkout scm
                 sh 'mvn clean compile'
                 script {
-                    newVersion = readMavenPom file: 'pom.xml'
-                    printf('Test Version: %s', pom.version)
+                  def pom = readMavenPom file: 'pom.xml'
+                  newVersion=pom.version
+                  printf('Test Version: %s', newVersion)
                 }
             }
             post {
