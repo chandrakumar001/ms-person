@@ -53,6 +53,15 @@
         <skipTests>false</skipTests>
         <skip.unit.tests>${skipTests}</skip.unit.tests>
         <skip.integration.test>${skipTests}</skip.integration.test>
+        <sonar.exclusions>
+            **/PersonAPIApplication.java,
+            **/error/*.java
+            **/audit/*.java
+            **/interceptor/*.java
+            **/tracking/*.java
+            **/common/logging/*.java
+            **/common/config/*.java
+        </sonar.exclusions>
     </properties>
 
     <dependencies>
