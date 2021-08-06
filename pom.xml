@@ -55,12 +55,12 @@
         <skip.integration.test>${skipTests}</skip.integration.test>
         <sonar.exclusions>
             **/PersonAPIApplication.java,
-            **/error/*.java
-            **/audit/*.java
-            **/interceptor/*.java
+            **/common/audit/*.java,
+            **/common/config/*.java,
+            **/error/*.java,
+            **/interceptor/*.java,
+            **/logging/*.java,
             **/tracking/*.java
-            **/common/logging/*.java
-            **/common/config/*.java
         </sonar.exclusions>
     </properties>
 
