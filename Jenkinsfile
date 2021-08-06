@@ -56,14 +56,14 @@ pipeline {
                 dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
             }
         }
-        // stage('SonarQube analysis') {
-        //     steps {
+        stage('SonarQube analysis') {
+            steps {
         //     //withSonarQubeEnv(credentialsId: 'test-sonarqube-secret-env', installationName: 'test-sonarqube-server-old') {
-        //         withSonarQubeEnv('chandran-edu-sonarqube') {
-        //             sh 'mvn sonar:sonar -Dsonar.dependencyCheck.jsonReportPath=target/dependency-check-report.json -Dsonar.dependencyCheck.xmlReportPath=target/dependency-check-report.xml -Dsonar.dependencyCheck.htmlReportPath=target/dependency-check-report.html'
-        //         }
-        //     }
-        // }
+                withSonarQubeEnv('chandran-edu-sonarqube') {
+                    sh 'mvn sonar:sonar -Dsonar.dependencyCheck.jsonReportPath=target/dependency-check-report.json -Dsonar.dependencyCheck.xmlReportPath=target/dependency-check-report.xml -Dsonar.dependencyCheck.htmlReportPath=target/dependency-check-report.html'
+                }
+            }
+        }
         // Package
         stage('Package') {
             steps {
@@ -91,6 +91,13 @@ pipeline {
                 sh 'docker rmi -f 139.162.195.118:5000/ms-person:'+newVersion+' 139.162.195.118:5000/ms-person:latest'
             }
         }
+        // stage('Deploy') {
+        //     steps {
+        //         withKubeConfig([credentialsId: 'chandran-edu-kubernetes-config']) {
+        //             sh 'kubectl set image deployment/ms-person ms-person=139.162.195.118:5000/ms-person:'+newVersion
+        //         }
+        //     }
+        // }
     //end
     }
 }
