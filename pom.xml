@@ -58,9 +58,15 @@
             **/common/audit/*.java,
             **/common/config/*.java,
             **/error/*.java,
+            **/error/model/*.java,
             **/interceptor/*.java,
+            **/interceptor/config/*.java,
             **/logging/*.java,
-            **/tracking/*.java
+            **/tracking/*.java,
+            **/util/*.java,
+            **/person/entity/*.java,
+            **/person/entity/*.java,
+            **/person/entity/*Constant.java
         </sonar.exclusions>
     </properties>
 
