@@ -1,5 +1,6 @@
 package com.chandrakumar.ms.api.person.resource
 
+import com.chandrakumar.ms.api.person.mapper.PersonMapper
 import com.chandrakumar.ms.api.person.service.PersonMockData
 import com.chandrakumar.ms.api.person.service.PersonQueryService
 import com.chandrakumar.ms.api.person.swagger.model.PersonDTO
