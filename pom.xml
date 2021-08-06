@@ -36,7 +36,7 @@
         <resilience4jVersion>1.6.1</resilience4jVersion>
         <!--plugin.version-->
         <owasp.dependency-check-maven.version>6.2.2</owasp.dependency-check-maven.version>
-
+        <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
         <!--plugin.version-->
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
@@ -390,6 +390,26 @@
                     <execution>
                         <goals>
                             <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>default-prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>default-report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
                         </goals>
                     </execution>
                 </executions>
