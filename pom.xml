@@ -53,21 +53,21 @@
         <skipTests>false</skipTests>
         <skip.unit.tests>${skipTests}</skip.unit.tests>
         <skip.integration.test>${skipTests}</skip.integration.test>
-        <sonar.exclusions>
-            **/PersonAPIApplication.java,
-            **/common/audit/*.java,
-            **/common/config/*.java,
-            **/error/*.java,
-            **/error/model/*.java,
-            **/interceptor/*.java,
-            **/interceptor/config/*.java,
-            **/logging/*.java,
-            **/tracking/*.java,
-            **/util/*.java,
-            **/person/entity/*.java,
-            **/person/entity/*.java,
-            **/person/entity/*Constant.java
-        </sonar.exclusions>
+<!--        <sonar.exclusions>-->
+<!--            **/PersonAPIApplication.java,-->
+<!--            **/common/audit/*.java,-->
+<!--            **/common/config/*.java,-->
+<!--            **/error/*.java,-->
+<!--            **/error/model/*.java,-->
+<!--            **/interceptor/*.java,-->
+<!--            **/interceptor/config/*.java,-->
+<!--            **/logging/*.java,-->
+<!--            **/tracking/*.java,-->
+<!--            **/util/*.java,-->
+<!--            **/person/entity/*.java,-->
+<!--            **/person/entity/*.java,-->
+<!--            **/person/entity/*Constant.java-->
+<!--        </sonar.exclusions>-->
     </properties>
 
     <dependencies>
